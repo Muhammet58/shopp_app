@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+{% endblock %}
+
+
+{% block body %}
+
+<input type="checkbox" id="check">
+<label for="check">
+    <i class="fa-solid fa-times" id="cancel"></i>
+</label>
+
+<div class="nav">
+    <label for="check">
+        <i class="fa-solid fa-bars" id="btn"></i>
+    </label>
+    <p>SHOPPİNGFLY</p>
+</div>
+
+<div class="sidebar">
+    <header>MENU</header>
+    <ul>
+        <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
+        <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
+    </ul>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        {% for shop_model in shopping_model %}
+        <div class="col">
+            {% include 'partials/_card.html' %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+{% block js_file %}
+<script src="{% static 'shopp_App/nav.js' %}"></script>{% endblock %}
+{% endblock %}

@@ -1,0 +1,92 @@
+{% load static %}
+
+<style>
+    .quantity_style {
+        position: relative;
+        bottom: -7px;
+    }
+
+    .info_style {
+        width: 100%;
+        position: relative;
+        bottom: -50px;
+    }
+
+    @media screen and (max-width: 900px) {
+        .info_style {
+            width: 100%;
+            bottom: -10px;
+        }
+
+        .quantity_style {
+            position: relative;
+            bottom: -10px;
+        }
+    }
+</style>
+
+
+
+
+
+<div class="card mt-3" style="width: 100%; top: 40px;">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="{% static 'image/'|add:basket.product.image %}" class="img-fluid rounded-start"
+                alt="{{ basket.product.title }}">
+        </div>
+        <div class="col-md-9">
+            <div class="card-body">
+                <div style="display: flex; align-items: center; justify-content: space-between; clear: both;">
+                    <h2 class="card-title" style="text-align: center;">{{ basket.product.title|title }}</h2>
+                    <a href="{% url 'remove' product_id=basket.id %}" class="btn btn-outline-danger">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+
+                <hr>
+
+                <p class="card-text" style="font-size: x-large;">Ürün Fiyatı : ${{basket.product.price }}</p>
+                {% if basket.quantity == 1 %}
+                <div class="d-flex align-items-center">
+                    <p class="card-text quantity_style mx-3" style="font-size: x-large;">Adet : {{basket.quantity }}</p>
+                    <a href="{% url 'increase' product_id=basket.id %}" class="btn btn-outline-primary btn-lg">+</a>
+                </div>
+                {% else %}
+                <div class="d-flex align-items-center">
+                    <a href="{% url 'decrease' product_id=basket.id %}" class="btn btn-outline-primary btn-lg">-</a>
+                    <p class="card-text quantity_style mx-3" style="font-size: x-large;">Adet : {{basket.quantity }}</p>
+                    <a href="{% url 'increase' product_id=basket.id %}" class="btn btn-outline-primary btn-lg">+</a>
+                </div>
+                {% endif %}
+
+
+                <a href="" class="btn btn-outline-danger info_style" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal{{basket.product.id}}">Ürün
+                    detayı</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="modal fade" id="exampleModal{{basket.product.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ basket.product.title|title }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{basket.product.content|safe}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>

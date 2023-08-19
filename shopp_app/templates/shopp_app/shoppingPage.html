@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<input type="checkbox" id="check">
+<label for="check">
+	<i class="fa-solid fa-times" id="cancel"></i>
+</label>
+
+<div class="nav">
+	<label for="check">
+		<i class="fa-solid fa-bars" id="btn"></i>
+	</label>
+	<p>SHOPPINGFLY</p>
+</div>
+
+<div class="sidebar">
+	<header>MENU</header>
+	<ul>
+		<li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
+		<li><a href=""><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
+	</ul>
+</div>
+
+<div class="container">
+
+	{% if baskets|length > 0 %}
+	{% for basket in baskets %}
+	{% include 'partials/_basket-card.html' %}
+	{% endfor %}
+
+
+	<form action="{% url 'buy_products' %}" method="post" id="buy_products">
+		{% csrf_token %}
+		<div
+			style="color: black; font-size: 28px; display: flex; justify-content: space-between; align-items: center; margin-top: 60px; margin-bottom: 50px;">
+			Toplam ücret: ${{ total_price }}
+			<input form="buy_products" type="submit" class="btn btn-primary btn-lg" value="Ürünleri Sipariş Et"
+				style="width: 70%;">
+		</div>
+	</form>
+
+	{% else %}
+
+	{% if info %}
+	<div class="alert alert-danger" role="alert"
+		style="font-weight: bold; font-size: large; margin-top: 50px; text-align: center;">{{ info }}</div>
+	{% else %}
+	<div class="alert alert-primary" role="alert"
+		style="font-weight: bold; font-size: large; margin-top: 50px; text-align: center;">
+		Sepetinizde ürün bulunmamaktadır
+	</div>
+
+	{% endif %}
+
+	{% endif %}
+
+</div>
+
+{% endblock %}
