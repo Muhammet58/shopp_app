@@ -3,20 +3,34 @@
 <div class="card mt-5" style="width: 100%; height: 92%;">
     <img src="{% static 'image/'|add:shop_model.image %}" class="card-img-top">
     <div class="card-body text-center">
-        <h3 class="card-title">{{ shop_model.title|title }}</h3>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="card-title">{{ shop_model.title|title }}</h3>
+            <a href="javascript:void(0);">
+                <i style="color: gray;" onclick="toggleFavorite(this, {{ shop_model.id }})" class="fas fa-star h3 {% if shop_model.id in favorite_products %} text-warning {% endif %}"
+                    type="button"></i>
+            </a>
+        </div>
         <hr>
         <p style="font-size: larger; font-size: 22px;">Fiyat : ${{ shop_model.price }}</p>
         <div class="card-footer">
             <div class="btn-group" style="width: 100%;">
-                <a href="" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal{{shop_model.id}}">İncele</a>
-                <a href="{% url 'add_to_mybasket' product_id=shop_model.id %}" class="btn btn-outline-danger btn-lg">Sepete Ekle</a>
+                <a href="" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal{{shop_model.id}}">İncele</a>
+                {% if shop_model.id in busket_products %}
+                <a href="javascript:void(0)" class="btn btn-outline-danger btn-lg"
+                    id="basketButton{{ shop_model.id }}">Ürün Sepette</a>
+                {% else %}
+                <a href=" javascript:void(0)" onclick="toggleBasket({{ shop_model.id }})"
+                    class="btn btn-outline-danger btn-lg" id="basketButton{{ shop_model.id }}">Sepete Ekle</a>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="modal fade" id="exampleModal{{shop_model.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal{{shop_model.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,7 +42,13 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                <a href="{% url 'add_to_mybasket' shop_model.id %}" type="button" class="btn btn-danger">Sepete Ekle</a>
+                {% if shop_model.id in busket_products %}
+                <a href="javascript:void(0)" class="btn btn-danger"
+                    id="basketButtonModal{{ shop_model.id }}">Ürün Sepette</a>
+                {% else %}
+                <a href=" javascript:void(0)" onclick="toggleBasket({{ shop_model.id }})"
+                    class="btn btn-danger" id="basketButtonModal{{ shop_model.id }}">Sepete Ekle</a>
+                {% endif %}
             </div>
         </div>
     </div>

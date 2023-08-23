@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+<h3 style="margin-top: 50px; text-align: center; text-transform: uppercase;">Favorilerim</h3>
+<hr size="5" color="black">
+<div class="container">
+    {% if myFavorite|length > 0 %}
+    {% for favorite in myFavorite %}
+    {% include 'partials/_favorite-card.html' %}
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-warning" style="text-align: center; font-size: large; font-weight: bold;">Favorilerim
+        kısmında ürün bulunmamaktadır</div>
+    {% endif %}
+</div>
+
+{% block js_file %}<script src="{% static 'js/ajax.js' %}"></script>{% endblock %}
+{% endblock %}

@@ -1,32 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css_file %}
-<link rel="stylesheet" href="{% static 'css/nav.css' %}">
-{% endblock %}
 
 {% block body %}
 
-<input type="checkbox" id="check">
-<label for="check">
-	<i class="fa-solid fa-times" id="cancel"></i>
-</label>
-
-<div class="nav">
-	<label for="check">
-		<i class="fa-solid fa-bars" id="btn"></i>
-	</label>
-	<p>SHOPPINGFLY</p>
-</div>
-
-<div class="sidebar">
-	<header>MENU</header>
-	<ul>
-		<li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
-		<li><a href=""><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
-	</ul>
-</div>
-
+<h3 style="text-align: center; text-transform: uppercase; margin-top: 50px;">sepetim</h3>
+<hr size="5" color="black">
 <div class="container">
 
 	{% if baskets|length > 0 %}
@@ -37,10 +16,9 @@
 
 	<form action="{% url 'buy_products' %}" method="post" id="buy_products">
 		{% csrf_token %}
-		<div
-			style="color: black; font-size: 28px; display: flex; justify-content: space-between; align-items: center; margin-top: 60px; margin-bottom: 50px;">
-			Toplam ücret: ${{ total_price }}
-			<input form="buy_products" type="submit" class="btn btn-primary btn-lg" value="Ürünleri Sipariş Et"
+		<div style="color: black; font-size: 28px; display: flex; justify-content: space-between; align-items: center; margin-top: 60px; margin-bottom: 50px;">
+			<p id="totalPriceText" >Toplam ücret: ${{ total_price }}</p>
+			<input form="buy_products" id="buyProducts" type="submit" class="btn btn-primary btn-lg" value="Ürünleri Sipariş Et"
 				style="width: 70%;">
 		</div>
 	</form>
@@ -49,10 +27,10 @@
 
 	{% if info %}
 	<div class="alert alert-danger" role="alert"
-		style="font-weight: bold; font-size: large; margin-top: 50px; text-align: center;">{{ info }}</div>
+		style="font-weight: bold; font-size: large; text-align: center;">{{ info }}</div>
 	{% else %}
 	<div class="alert alert-primary" role="alert"
-		style="font-weight: bold; font-size: large; margin-top: 50px; text-align: center;">
+		style="font-weight: bold; font-size: large; text-align: center;">
 		Sepetinizde ürün bulunmamaktadır
 	</div>
 
@@ -61,5 +39,7 @@
 	{% endif %}
 
 </div>
-
+{% block js_file %}
+<script src="{% static 'js/ajax.js' %}"></script>
+{% endblock %}
 {% endblock %}
