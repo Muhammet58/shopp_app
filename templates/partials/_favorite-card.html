@@ -7,8 +7,21 @@
         bottom: -100px;
     }
 
+    .add_to_basket {
+        float: right;
+        position: relative;
+        bottom: -100px;
+        
+    }
+
     @media screen and (max-width: 900px) {
         .info_style {
+            position: relative;
+            bottom: 10px;
+        }
+
+        .add_to_basket {
+            float: left;
             position: relative;
             bottom: 10px;
         }
@@ -25,32 +38,34 @@
             <div class="card-body">
                 <div style="display: flex; align-items: center; justify-content: space-between; clear: both;">
                     <h2 class="card-title" style="text-align: center;">{{ favorite.product.title|title }}</h2>
-                    <a href="javascript:void(0)"  onclick="toggleRemoveFavorite({{favorite.product.id}})"><i style="color: red;" class="fa fa-times h2" type="button"></i></a>
+                    <a href="javascript:void(0)" onclick="toggleRemoveFavorite({{favorite.product.id}})"><i
+                            style="color: red;" class="fa fa-times h2" type="button"></i></a>
                 </div>
                 <hr>
                 <p class=" card-text" style="font-size: x-large;">Ürün Fiyatı: ${{ favorite.product.price }}</p>
-                        <a href="" class="btn btn-outline-danger info_style" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal{{ favorite.product.id }}">Ürün
-                            detayı</a>
-                </div>
+                <a class="btn btn-outline-danger info_style" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal{{ favorite.product.id }}">Ürün
+                    Detayı</a>
+                <a href="javascript:void(0);" onclick="toggleBasket({{favorite.product.id}})" id="basketButton{{favorite.product.id}}" class="btn btn-outline-danger add_to_basket">Sepete Ekle</a>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" id="exampleModal{{ favorite.product.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ favorite.product.title|title }}</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>{{ favorite.product.content|safe }}</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                </div>
+<div class="modal fade" id="exampleModal{{ favorite.product.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ favorite.product.title|title }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>{{ favorite.product.content|safe }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
             </div>
         </div>
     </div>
+</div>
