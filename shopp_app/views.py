@@ -87,8 +87,10 @@ def remove(request, product_id):
 
 def myFavorite(request):
     myFavorite = myFavorite_model.objects.all()
+    basket_product = myBasket_model.objects.filter().values_list('product__id', flat=True)
     data = {
-        'myFavorite': myFavorite
+        'myFavorite': myFavorite,
+        'basket_product':basket_product
     }
     return render(request, 'shopp_app/myFavorites.html', data)
 

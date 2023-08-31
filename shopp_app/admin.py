@@ -5,7 +5,7 @@ class shopping_model_view(admin.ModelAdmin):
     list_display = ('title',)
 
 class MyBasketAdmin(admin.ModelAdmin):
-    list_display = ('product_title', 'quantity')
+    list_display = ('product_title', )
 
     def product_title(self, obj):
         return obj.product.title

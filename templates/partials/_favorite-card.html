@@ -11,7 +11,7 @@
         float: right;
         position: relative;
         bottom: -100px;
-        
+
     }
 
     @media screen and (max-width: 900px) {
@@ -46,7 +46,15 @@
                 <a class="btn btn-outline-danger info_style" data-bs-toggle="modal"
                     data-bs-target="#exampleModal{{ favorite.product.id }}">Ürün
                     Detayı</a>
-                <a href="javascript:void(0);" onclick="toggleBasket({{favorite.product.id}})" id="basketButton{{favorite.product.id}}" class="btn btn-outline-danger add_to_basket">Sepete Ekle</a>
+                {% if favorite.product.id in basket_product %}
+                <a href="javascript:void(0);" id="basketButton{{favorite.product.id}}"
+                    class="btn btn-outline-danger add_to_basket">Ürün
+                    Sepette</a>
+                {% else %}
+                <a href="javascript:void(0);" onclick="toggleBasket({{favorite.product.id}})"
+                    id="basketButton{{favorite.product.id}}" class="btn btn-outline-danger add_to_basket">Sepete
+                    Eklendi</a>
+                {% endif %}
             </div>
         </div>
     </div>

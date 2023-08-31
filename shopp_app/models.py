@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class shopping_model(models.Model):
     image = models.CharField(max_length=100)
@@ -13,3 +14,9 @@ class myBasket_model(models.Model):
 
 class myFavorite_model(models.Model):
     product = models.ForeignKey(shopping_model, on_delete=models.CASCADE)
+
+
+
+    
+
+

@@ -33,18 +33,26 @@
         <p>SHOPPİNGFLY</p>
     </div>
 
+    <div class="overlay"></div>    
     <div class="sidebar">
         <header>MENU</header>
+        {% if user.is_authenticated %}
         <ul>
             <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
             <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
             <li><a href="{% url 'my_favorite'  %}"><i class="fa-solid fa-star"></i>Favorilerim</a></li>
-            <!--<li><a href=""><i class="fa-solid fa-user-plus"></i>Kayıt Ol</a></li>
-            <li><a href=""><i class="fa-solid fa-arrow-right-to-bracket"></i> Giriş</a></li>-->
         </ul>
+        {% else %}
+        <ul>
+            <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
+            <li><a href=""><i class="fa-solid fa-user-plus"></i>Kayıt Ol</a></li>
+            <li><a href=""><i class="fa-solid fa-arrow-right-to-bracket"></i> Giriş</a></li>
+        </ul>
+        {% endif %}
     </div>
 
     {% block body %}{% endblock %}
+    
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
