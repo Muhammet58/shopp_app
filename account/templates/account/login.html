@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/login_form.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+
+        {% if error %}
+        <div class="alert mt-5" role="alert" style="background: crimson; text-align: center; color: white; font-size: large; font-weight: bold;">{{error}}</div>
+        <hr>
+        {% endif %}
+
+        <div>
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="mt-5">
+            {{ form.password.label_tag }}
+            {{ form.password }}
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto mt-5">
+            <button class="btn btn-outline-dark btn-lg">Giriş Yap</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

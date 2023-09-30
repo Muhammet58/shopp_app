@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+
+<style>
+    .style {
+        position: relative;
+        width: 100%;
+        bottom: -80px;
+    }
+
+    @media screen and (max-width:900px) {
+        .style {
+            position: relative;
+            width: 100%;
+            top: 0;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        {% if shopping_model|length > 0 %}
+        {% for shopping in shopping_model %}
+
+        <div class="col-6">
+            <div class="card mt-5" id="product{{shopping.id}}">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{shopping.image.url}}" class="img-fluid rounded-start">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align: center;">{{shopping.title|title}}</h5>
+                            <hr>
+                            <p class="card-text">
+                                <a class="btn btn-outline-danger style" data-bs-toggle="modal"
+                                    data-bs-target="#removeModal{{shopping.id}}">Ürünü
+                                    kaldır</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="product_remove_alert" class="alert mt-5"
+            style="text-align: center; font-size: large; background: crimson; color: white; display: none;">
+            Sistemde kayıtlı ürün bulunamadı</div>
+
+        <div class="modal fade" id="removeModal{{shopping.id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">UYARI !</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-weight: bold; font-size: large;">Ürünü kaldırmak istediğinizden emin misiniz !
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hayır</button>
+                        <a class="btn btn-danger"
+                            onclick="product_remove({{shopping.id}})" type="button" data-bs-dismiss="modal">Evet</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% endfor %}
+
+        {% else %}
+        <div class="alert mt-5" style="text-align: center; font-size: large; background: crimson; color: white;">
+            Sistemde kayıtlı ürün bulunamadı</div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% block js_file %}
+<script src="{% static 'js/ajax.js' %}"></script>{% endblock %}
+{% endblock %}

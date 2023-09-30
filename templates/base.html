@@ -3,7 +3,6 @@
 <html lang="tr">
 
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=devace-width, initial-scale=1.0">
@@ -30,21 +29,48 @@
         <label for="check">
             <i class="fa-solid fa-bars" id="btn"></i>
         </label>
-        <p>SHOPPİNGFLY</p>
+        <p class="shopp">SHOPPİNGFLY</p>
+
+        {% if user.is_authenticated %}
+            <p class="name">Hoşgeldin &nbsp;{{ request.user.username }}</p>
+        {% endif %}
+
     </div>
 
-    <div class="overlay"></div>    
+    <div class="overlay"></div>
     <div class="sidebar">
         <header>MENU</header>
+        {% if user.is_superuser and user.is_authenticated %}
         <ul>
             <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
             <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
             <li><a href="{% url 'my_favorite'  %}"><i class="fa-solid fa-star"></i>Favorilerim</a></li>
+            <li><a href="{% url 'product_add' %}"><i class="fa-solid fa-plus"></i>Ürün ekle</a></li>
+            <li><a href="{% url 'product_remove_page' %}"><i class="fa-solid fa-minus"></i></fa-solid>Ürün kaldır</a></li>
+            <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
+            <li class="username">Hoşgeldin<br>{{ request.user.username }}</li>
         </ul>
+        {% else %}
+        {% if user.is_authenticated %}
+        <ul>
+            <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
+            <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
+            <li><a href="{% url 'my_favorite'  %}"><i class="fa-solid fa-star"></i>Favorilerim</a></li>
+            <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
+            <li class="username">Hoşgeldin<br>{{ request.user.username }}</li>
+        </ul>
+        {% else %}
+        <ul>
+            <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
+            <li><a href="{% url 'register' %}"><i class="fa-solid fa-user-plus"></i>Kayıt Ol</a></li>
+            <li><a href="{% url 'login' %}"><i class="fa-solid fa-arrow-right-to-bracket"></i> Giriş</a></li>
+        </ul>
+        {% endif %}
+        {% endif %}
     </div>
 
     {% block body %}{% endblock %}
-    
+
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>

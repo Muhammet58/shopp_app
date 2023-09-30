@@ -104,10 +104,11 @@ function toggleDecrease(product_id) {
 
 
 function toggleRemove(product_id) {
-    var csrf_token = "{{ csrf_token }}"
-    var total_price_text = document.getElementById("totalPriceText");
-    var my_product = document.getElementById("myProduct" + product_id);
-    var buy_products = document.getElementById("buyProducts");
+    const csrf_token = "{{ csrf_token }}"
+    const total_price_text = document.getElementById("totalPriceText");
+    const my_product = document.getElementById("myProduct" + product_id);
+    const buy_products = document.getElementById("buyProducts");
+    const alertElement = document.getElementById("ALERT");
 
     $.ajax({
         type: "GET",
@@ -115,16 +116,20 @@ function toggleRemove(product_id) {
         dataType: "json",
         data: { "csrfmiddlewaretoken": csrf_token },
         success: function (response) {
-            if (response.message === "deleted") {
-                my_product.remove()
-                total_price_text.innerText = "Toplam ücret: $" + response.new_total_price;
-            }
 
             if (response.new_total_price == "0") {
                 total_price_text.style.display = "none";
                 buy_products.style.display = "none";
             }
 
+            if (response.message === "deleted") {
+                my_product.remove()
+                total_price_text.innerText = "Toplam ücret: $" + response.new_total_price;
+            }
+
+            if (response.item_quantity === 0) {
+                alertElement.style.display = "block";
+            }
         },
         error: function () {
             alert("Hata oluştu !")
@@ -137,6 +142,7 @@ function toggleRemove(product_id) {
 function toggleRemoveFavorite(product_id) {
     var csrf_token = "{{ csrf_token }}"
     var my_favorite = document.getElementById("myFavorite" + product_id);
+    const alertElement = document.getElementById("favoriteAlert")
 
     $.ajax({
         type: "GET",
@@ -148,6 +154,10 @@ function toggleRemoveFavorite(product_id) {
             if (response.message == "deleted") {
                 my_favorite.remove()
             };
+
+            if (response.item_quantity === 0) {
+                alertElement.style.display = "block";
+            }
         },
         error: function () {
             alert("Hata oluştu !")
@@ -156,3 +166,30 @@ function toggleRemoveFavorite(product_id) {
 };
 
 
+
+
+function product_remove(product_id) {
+    const csrf_token = "{{ csrf_token }}";
+    const product = document.getElementById("product" + product_id);
+    const product_alert = document.getElementById("product_remove_alert");
+
+    $.ajax ({
+        type: "GET",
+        url: "/product_remove/" + product_id,
+        dataType: "json",
+        data: { "csrfmiddlewaretoken": csrf_token },
+        success: function(response) {
+            if (response.message == "deleted") {
+                product.remove()
+            }
+            
+            if(response.item_quantity === 0) {
+                product_alert.style.display = "block"
+            }
+
+        }, 
+        error: function() {
+            alert("Hata oluştu !")
+        }
+    })
+}

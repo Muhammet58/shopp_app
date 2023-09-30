@@ -1,0 +1,74 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 90vh;
+}
+
+.field {
+    background: linear-gradient(180deg, black 17%, darksalmon 10%);
+    border-radius: 30px;
+    padding: 30px;
+    width: 50%;
+}
+
+
+form label {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+form label[for="username"] {
+    margin-top: 50px;
+}
+
+
+.text {
+    color: white;
+    text-align: center;
+    line-height: 45px;
+    font-size: 25px;
+    font-weight: lighter;
+  }
+  
+
+input[type=text] {
+    border: 3px dashed black;
+}
+
+input[type=email] {
+    border: 3px dashed black;
+}
+
+input[type=password] {
+    border: 3px dashed black;
+}
+
+
+input[type=text]:focus {
+    outline: none;
+    border: 3px dashed lightsalmon;
+}
+
+input[type=email]:focus {
+    outline: none;
+    border: 3px dashed lightsalmon;
+}
+
+input[type=password]:focus {
+    outline: none;
+    border: 3px dashed lightsalmon;
+}
+
+
+@media screen and (max-width: 900px) {
+    .container {
+        height: 100vh;
+    }
+
+    .field {
+        width: 100%;
+    }
+}

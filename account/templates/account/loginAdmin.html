@@ -1,0 +1,21 @@
+{% extends 'adminBase.html' %}
+
+
+{% block body %}
+<form method="post">
+    {% csrf_token %}
+
+    {% if error %}
+    <p style=" color: crimson; text-align: center; line-height: 5px; font-size: 25px; font-weight: bold;">{{ error }}</p>
+    {% else %}
+    <p style=" color: white; text-align: center; line-height: 5px; font-size: 25px; font-weight: lighter;">- Admin giriş alanı -</p>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <div class="d-grid gap-2 mt-5 col-6 mx-auto">
+        <button class="btn btn-outline-dark btn-lg" type="submit">Giriş</button>
+    </div>
+</form>
+{% endblock %}
+

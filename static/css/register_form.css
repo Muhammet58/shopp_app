@@ -1,0 +1,20 @@
+label {
+    color: black;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: larger;
+    transition: 0.5s ease;
+}
+
+input[type="text"] {
+    border: 1px solid black;
+}
+
+input[type="email"] {
+    border: 1px solid black;
+}
+
+input[type="password"] {
+    border: 1px solid black;
+}
+

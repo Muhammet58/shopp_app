@@ -1,0 +1,31 @@
+{% extends 'adminBase.html' %}
+
+{% block body %}
+<form method="post" action=".">
+    {% csrf_token %}
+
+    {% if error %}
+    <div class="text" role="alert" style="color: crimson; font-size: 25px; font-weight: bold;">{{ error }}</div>
+    {% else %}
+    <p class="text">- Admin kayıt alanı -</p>
+    {% endif %}
+
+    <label for="username">Kullanıcı adı:</label>
+    <input class="form-control" type="text" name="username" id="username" value="{{ username }}" required>
+
+    <label for="email">E-posta:</label>
+    <input class="form-control" type="email" name="email" id="email" value="{{ email }}" required>
+
+    <label for="password1">Parola:</label>
+    <input class="form-control" type="password" name="password1" id="password1" required>
+
+    <label for="password2">Parola tekrar:</label>
+    <input class="form-control" type="password" name="password2" id="password2" required>
+
+    <div class="d-grid gap-2 mt-5 col-6 mx-auto">
+        <button class="btn btn-outline-dark btn-lg" type="submit">Kayıt Oluştur</button>
+    </div>
+
+</form>
+
+{% endblock %}

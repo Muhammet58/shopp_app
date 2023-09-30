@@ -1,0 +1,13 @@
+.Card {
+    width: 24%;
+    height: 600px;
+    float: left;
+    margin-right: 1%;
+}
+@media screen and (max-width: 900px) {
+    .Card {
+        width: 100%;
+        clear: both;
+        margin-bottom: 15%;
+    }
+}

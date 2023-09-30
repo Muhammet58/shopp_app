@@ -16,18 +16,19 @@
 
 	<form action="{% url 'buy_products' %}" method="post" id="buy_products">
 		{% csrf_token %}
-		<div style="color: black; font-size: 28px; display: flex; justify-content: space-between; align-items: center; margin-top: 60px; margin-bottom: 50px;">
-			<p id="totalPriceText" >Toplam ücret: ${{ total_price }}</p>
-			<input form="buy_products" id="buyProducts" type="submit" class="btn btn-primary btn-lg" value="Ürünleri Sipariş Et"
-				style="width: 70%;">
+		<div
+			style="color: black; font-size: 28px; display: flex; justify-content: space-between; align-items: center; margin-top: 60px; margin-bottom: 50px;">
+			<p id="totalPriceText">Toplam ücret: ${{ total_price }}</p>
+			<input form="buy_products" id="buyProducts" type="submit" class="btn btn-primary btn-lg"
+				value="Ürünleri Sipariş Et" style="width: 70%;">
 		</div>
 	</form>
 
 	{% else %}
 
 	{% if info %}
-	<div class="alert alert-danger" role="alert"
-		style="font-weight: bold; font-size: large; text-align: center;">{{ info }}</div>
+	<div class="alert alert-danger" role="alert" style="font-weight: bold; font-size: large; text-align: center;">{{
+		info }}</div>
 	{% else %}
 	<div class="alert alert-primary" role="alert"
 		style="font-weight: bold; font-size: large; text-align: center;">

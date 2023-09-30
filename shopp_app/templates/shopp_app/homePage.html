@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/card.css' %}">
+{% endblock %}
 
 {% block body %}
 
 <div class="container">
-    <div class="row">
-        {% for shop_model in shopping_model %}
-        <div class="col">
-            {% include 'partials/_card.html' %}
-        </div>
-        {% endfor %}
+    {% if shopping_model|length > 0 %}
+    {% for shop_model in shopping_model %}
+    <div class="Card">
+        {% include 'partials/_card.html' %}
     </div>
+    {% endfor %}
+    {% else %}
+        <div class="alert mt-5" style="text-align: center; font-size: large; background: crimson; color: white;">Sistemde kayıtlı ürün bulunamadı</div>
+    {% endif %}
 </div>
 
 

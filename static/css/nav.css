@@ -8,17 +8,25 @@
 .nav {
     position: absolute;
     width: 100%;
-    background-color: #282828;
+    background-color: #232323;
     height: 60px;
     top: 0%;
 }
 
-.nav p {
+.shopp {
     position: absolute;
     left: 20px;
     line-height: 60px;
     color: blueviolet;
     font-size: 30px;
+}
+
+.name {
+    position: absolute;
+    color: white;
+    line-height: 60px;
+    font-size: 20px;
+    right: 125px;
 }
 
 .sidebar {
@@ -55,6 +63,7 @@
     border-bottom: 1px solid black;
     transition: .4s;
 }
+
 
 ul li:hover a {
     padding-left: 70px;
@@ -125,4 +134,23 @@ label #cancel {
 
 #check:checked~.overlay {
     display: block;
+}
+
+.username {
+    display: none;
+}
+
+@media screen and (max-width: 900px) {
+    .name {
+        display:none;
+    }
+
+    .username {
+        display: block;
+        margin-top: 10px;
+        text-align: center;
+        color: white;
+        font-size: 20px;
+    }
+
 }
