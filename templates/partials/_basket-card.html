@@ -38,7 +38,7 @@
             <div class="card-body">
                 <div style="display: flex; align-items: center; justify-content: space-between; clear: both;">
                     <h2 class="card-title" style="text-align: center;">{{ basket.product.title|title }}</h2>
-                    <a href="javascript:void(0)" onclick="toggleRemove({{basket.id}})" class="btn btn-outline-danger">
+                    <a data-bs-toggle="modal" data-bs-target="#removeModal{{basket.id}}"  class="btn btn-outline-danger">
                         <i class="fas fa-times"></i>
                     </a>
                 </div>
@@ -105,3 +105,40 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="removeModal{{basket.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            {% if basket.product.id in favorites %}
+            <div class="modal-header bg-danger">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">{{ basket.product.title|title }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Ürün favorilerden de kaldırılsınmı ?</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-secondary" href="javascript:void(0)" onclick="toggleRemove({{basket.id}})" data-bs-dismiss="modal">hayır</a>
+                <a type="button" class="btn btn-danger" href="javascript:void(0)" onclick="toggleRemove({{basket.id}}), toggleRemoveFavorite({{basket.product.id}})" data-bs-dismiss="modal" style="color: white;">evet</a>
+            </div>
+            {% else %}
+            <div class="modal-header bg-warning">
+                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: black;">{{ basket.product.title|title }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Ürün favorilere eklensinmi ?</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-secondary" href="javascript:void(0)" onclick="toggleRemove({{basket.id}})" data-bs-dismiss="modal">hayır</a>
+                <a type="button" class="btn btn-warning" href="javascript:void(0)" onclick="toggleRemove({{basket.id}}), toggleFavorite(this, {{basket.product.id}}) " data-bs-dismiss="modal" style="color: black;">evet</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+

@@ -13,34 +13,123 @@
 	{% include 'partials/_basket-card.html' %}
 	{% endfor %}
 
-
-	<form action="{% url 'buy_products' %}" method="post" id="buy_products">
-		{% csrf_token %}
-		<div
-			style="color: black; font-size: 28px; display: flex; justify-content: space-between; align-items: center; margin-top: 60px; margin-bottom: 50px;">
-			<p id="totalPriceText">Toplam ücret: ${{ total_price }}</p>
-			<input form="buy_products" id="buyProducts" type="submit" class="btn btn-primary btn-lg"
-				value="Ürünleri Sipariş Et" style="width: 70%;">
-		</div>
-	</form>
+	<div
+		style="color: black; font-size: 28px; display: flex; justify-content: space-between; align-items: center; margin-top: 70px; margin-bottom: 50px;">
+		<p id="totalPriceText">Toplam ücret: ${{ total_price }}</p>
+		<button id="buyProducts" type="button" class="btn btn-primary btn-lg" style="width: 70%;" data-bs-toggle="modal"
+			data-bs-target="#ProductModal">Ürünleri Sipariş Et</button>
+	</div>
 
 	{% else %}
 
 	{% if info %}
-	<div class="alert alert-danger" role="alert" style="font-weight: bold; font-size: large; text-align: center;">{{
-		info }}</div>
+	<div class="alert alert-danger" role="alert" style="font-weight: bold; font-size: large; text-align: center;">{{info}}</div>
 	{% else %}
-	<div class="alert alert-primary" role="alert"
-		style="font-weight: bold; font-size: large; text-align: center;">
+	<div class="alert alert-primary" role="alert" style="font-weight: bold; font-size: large; text-align: center;">
 		Sepetinizde ürün bulunmamaktadır
 	</div>
-
 	{% endif %}
 
 	{% endif %}
-
 </div>
+
+<div class="modal fade" id="ProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">Kart Bilgileri</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="post" action="{% url 'buy_products' %}" id="buy_products">
+					{% csrf_token %}
+					<div class="mb-3">
+						<label style="font-weight: bold; font-size: large;" for="NO" class="col-form-label">Kart No:</label>
+						<input style="border: 2px solid black;" type="text" class="form-control" name="NO" id="NO" placeholder="4282209004348015" required>
+					</div>
+					<div class="mb-3">
+						<label style="font-weight: bold; font-size: large;" for="SKT" class="col-form-label">Son Kullanma Tarihi:</label>
+						<input style="border: 2px solid black;" type="text" class="form-control" name="SKT" id="SKT" placeholder="12/27" required></input>
+					</div>
+					<div class="mb-3">
+						<label style="font-weight: bold; font-size: large;" for="CVV" class="col-form-label">CVV:</label>
+						<input style="border: 2px solid black;" type="text" class="form-control" name="CVV" id="CVV" placeholder="378" required></input>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+				<button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onclick="validateForm()">İleri</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="buyModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<h1 class="modal-title fs-5" id="exampleModalToggleLabel2" style="color: white;">Tutar</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="color: black; font-size: large; font-weight: bold;">
+				Toplam tutar: ${{total_price}}
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+				<button class="btn btn-primary" data-bs-target="#ProductModal" data-bs-toggle="modal">Geri</button>
+				<button class="btn btn-danger" form="buy_products" data-bs-dismiss="modal">Öde</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal fade" id="warningModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h1 class="modal-title fs-5" id="exampleModalToggleLabel3" style="color: white;">Hata !</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body" style="color: black; font-size: large; font-weight: bold;">
+				<div class="alert alert-danger"  color: white;">Lütfen kart bilgilerinizi doldurunuz !
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+				<button class="btn btn-primary" data-bs-target="#ProductModal" data-bs-toggle="modal">Geri</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
 {% block js_file %}
 <script src="{% static 'js/ajax.js' %}"></script>
+
+<script>
+function validateForm() {
+    var NO = document.getElementById("NO").value;
+    var SKT = document.getElementById("SKT").value;
+    var CVV = document.getElementById("CVV").value;
+
+    if (NO === "" || SKT === "" || CVV === "") {
+        var emptyInputModal = new bootstrap.Modal(document.getElementById('warningModal'));
+        emptyInputModal.show();
+    } else {
+        var modal = new bootstrap.Modal(document.getElementById('buyModalToggle'));
+        modal.show();
+    }
+}
+</script>
+
 {% endblock %}
 {% endblock %}

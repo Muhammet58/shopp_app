@@ -29,11 +29,12 @@ def add_to_mybasket(request, product_id):
 def shoppingPage(request):
      baskets = myBasket_model.objects.filter(user=request.user) 
      total_price = sum(item.product.price * item.quantity for item in baskets)
-
+     favorites = myFavorite_model.objects.filter().values_list("product__id", flat=True)
 
      context = {
          'baskets': baskets,
          'total_price': total_price,
+         'favorites': favorites,
          }
     
      return render(request, 'shopp_app/shoppingPage.html', context)
@@ -45,10 +46,26 @@ def buy_products(request):
         myBasket_model.objects.filter(user=request.user).delete()
 
         info = {
-            'info':'Alışverişiniz başarılı bir şekilde tamamlanmıştır'
-        }
-
+            'info': 'Alışverişiniz başarılı bir şekilde tamamlanmıştır'
+                }
+        
         return render(request, 'shopp_app/shoppingPage.html', info)
+
+
+
+
+def cart_control(request):
+    if request.method == "POST":
+        kart_numarasi = request.POST["NO"]
+        son_kullanma_tarihi = request.POST["SKT"]
+        cvv = request.POST["CVV"]
+
+        if not kart_numarasi or not son_kullanma_tarihi or not cvv:
+            error = {
+                "error": "Lütfen kart bilgilerini doldurunuz !",
+            }
+            return render(request, "shopp_app/shoppingPage.html", error)
+      
     
 
 

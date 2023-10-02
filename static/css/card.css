@@ -4,7 +4,7 @@
     float: left;
     margin-right: 1%;
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 920px) {
     .Card {
         width: 100%;
         clear: both;
