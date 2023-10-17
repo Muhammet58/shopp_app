@@ -57,6 +57,7 @@ function toggleIncrease(product_id) {
     var increase_button = document.getElementById("increaseButton" + product_id);
     var decrease_button = document.getElementById("decreaseButton" + product_id);
     var total_price_text = document.getElementById("totalPriceText");
+    var price_text = document.getElementById("priceText");
 
     $.ajax({
         type: "GET",
@@ -66,6 +67,7 @@ function toggleIncrease(product_id) {
         success: function (response) {
             increase_text.innerText = response.new_quantity;
             total_price_text.innerText = "Toplam ücret: $" + response.new_total_price;
+            price_text.innerText = "Toplam Toplam tutar: $" + response.new_total_price;
             if (response.new_quantity > 1) {
                 decrease_button.style.display = "inline-block";
             }
@@ -82,6 +84,8 @@ function toggleDecrease(product_id) {
     var decrease_text = document.getElementById("quantityText" + product_id);
     var decrease_button = document.getElementById("decreaseButton" + product_id);
     var total_price_text = document.getElementById("totalPriceText");
+    var price_text = document.getElementById("priceText");
+
 
     $.ajax({
         type: "GET",
@@ -91,6 +95,7 @@ function toggleDecrease(product_id) {
         success: function (response) {
             decrease_text.innerText = response.new_quantity;
             total_price_text.innerText = "Toplam ücret: $" + response.new_total_price;
+            price_text.innerText = "Toplam Toplam tutar: $" + response.new_total_price;
             if (response.new_quantity == 1) {
                 decrease_button.style.display = "none";
             }
@@ -109,6 +114,7 @@ function toggleRemove(product_id) {
     const my_product = document.getElementById("myProduct" + product_id);
     const buy_products = document.getElementById("buyProducts");
     const alertElement = document.getElementById("ALERT");
+    var price_text = document.getElementById("priceText");
 
     $.ajax({
         type: "GET",
@@ -125,6 +131,7 @@ function toggleRemove(product_id) {
             if (response.message === "deleted") {
                 my_product.remove()
                 total_price_text.innerText = "Toplam ücret: $" + response.new_total_price;
+                price_text.innerText = "Toplam Toplam tutar: $" + response.new_total_price;
             }
 
             if (response.item_quantity === 0) {

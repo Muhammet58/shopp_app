@@ -8,17 +8,19 @@
     <meta name="viewport" content="width=devace-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'image/shopp_logo.png' %}">
+    <!--<link rel="shortcut icon" type="image/x-icon" href="{% static 'image/shopp_logo.png' %}">-->
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/icons.png' %}">
 
     {% block css_file %}{% endblock %}
-    <title>shoppingFLY.com</title>
+    <title>SHOPPINGFLY</title>
 
 </head>
 
-<body style="background: #FBCEB1;">
+<body style="background: #f8d9c5;">
 
     <input type="checkbox" id="check">
     <label for="check">
@@ -29,37 +31,36 @@
         <label for="check">
             <i class="fa-solid fa-bars" id="btn"></i>
         </label>
-        <p class="shopp">SHOPPİNGFLY</p>
-
-        {% if user.is_authenticated %}
-            <p class="name">Hoşgeldin &nbsp;{{ request.user.username }}</p>
-        {% endif %}
+        <a class="shopp" href="{% url 'homePage' %}">SHOPPINGFLY</a>
 
     </div>
 
     <div class="overlay"></div>
     <div class="sidebar">
-        <header>MENU</header>
         {% if user.is_superuser and user.is_authenticated %}
+        <header>{{ request.user.username }}</header>
         <ul>
             <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
+            <li><a href="{% url 'profile' %}"><i class="fa-solid fa-id-card-clip"></i>Profilim</a></li>
             <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
             <li><a href="{% url 'my_favorite'  %}"><i class="fa-solid fa-star"></i>Favorilerim</a></li>
             <li><a href="{% url 'product_add' %}"><i class="fa-solid fa-plus"></i>Ürün ekle</a></li>
             <li><a href="{% url 'product_remove_page' %}"><i class="fa-solid fa-minus"></i></fa-solid>Ürün kaldır</a></li>
             <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
-            <li class="username">Hoşgeldin<br>{{ request.user.username }}</li>
         </ul>
         {% else %}
         {% if user.is_authenticated %}
+        <header>{{ request.user.username }}</header>
         <ul>
             <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
+            <li><a href="{% url 'profile' %}"><i class="fa-solid fa-id-card-clip"></i>Profilim</a></li>
             <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
             <li><a href="{% url 'my_favorite'  %}"><i class="fa-solid fa-star"></i>Favorilerim</a></li>
             <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
             <li class="username">Hoşgeldin<br>{{ request.user.username }}</li>
         </ul>
         {% else %}
+        <header>MENU</header>
         <ul>
             <li><a href="{% url 'homePage' %}"><i class="fa-solid fa-house"></i>Anasayfa</a></li>
             <li><a href="{% url 'register' %}"><i class="fa-solid fa-user-plus"></i>Kayıt Ol</a></li>

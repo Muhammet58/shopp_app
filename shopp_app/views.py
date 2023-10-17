@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import shopping_model, myBasket_model, myFavorite_model
+from account.models import addresses
 from django.http import JsonResponse
 from .forms import productAddForm
 
@@ -20,6 +21,8 @@ def add_to_mybasket(request, product_id):
 
     if not created:
         basket.quantity += 1 
+        basket.save(comiit=False)
+        basket.user = request.user
         basket.save()
 
     return JsonResponse({'message': not created})
@@ -35,6 +38,7 @@ def shoppingPage(request):
          'baskets': baskets,
          'total_price': total_price,
          'favorites': favorites,
+         'address':addresses.objects.filter(userAddress=request.user)
          }
     
      return render(request, 'shopp_app/shoppingPage.html', context)
@@ -50,23 +54,7 @@ def buy_products(request):
                 }
         
         return render(request, 'shopp_app/shoppingPage.html', info)
-
-
-
-
-def cart_control(request):
-    if request.method == "POST":
-        kart_numarasi = request.POST["NO"]
-        son_kullanma_tarihi = request.POST["SKT"]
-        cvv = request.POST["CVV"]
-
-        if not kart_numarasi or not son_kullanma_tarihi or not cvv:
-            error = {
-                "error": "Lütfen kart bilgilerini doldurunuz !",
-            }
-            return render(request, "shopp_app/shoppingPage.html", error)
-      
-    
+          
 
 
 def increase(request, product_id):
@@ -172,4 +160,14 @@ def product_remove(request, id):
         return JsonResponse({"message":"deleted", "item_quantity":item_quantity})
                     
 
-        
+def ADDRESS(request):
+    address = addresses.objects.filter(userAddress=request.user)
+    if request.method == 'POST':
+        adres = request.POST.get('adres')
+        if adres:
+            request.user.address = adres
+            request.user.save()
+            return redirect('shoppingPage')
+        else:
+            return render(request, "shopp_app/shoppingPage.html", {"error":"Bir adres seçmelisiniz !", "address":address})
+    return redirect('shoppingPage')   

@@ -8,17 +8,18 @@
 .nav {
     position: absolute;
     width: 100%;
-    background-color: #232323;
-    height: 60px;
+    background-color: #151515;
+    height: 70px;
     top: 0%;
 }
 
 .shopp {
     position: absolute;
     left: 20px;
-    line-height: 60px;
-    color: blueviolet;
+    line-height: 70px;
+    color: white;
     font-size: 30px;
+    text-decoration: none;
 }
 
 .name {
@@ -34,19 +35,19 @@
     left: -250px;
     width: 250px;
     height: 100%;
-    background: #042331;
+    background: #202020;
     transition: all .5s ease;
     z-index: 100;
 }
 
 .sidebar header {
-    font-size: 25px;
+    font-size: 22px;
+    font-weight: ;
     color: white;
     text-align: center;
     line-height: 70px;
-    background: #063146;
+    background: #131313;
     user-select: none;
-    font-size: 30px;
 }
 
 .sidebar ul a {
@@ -65,7 +66,7 @@
 }
 
 
-ul li:hover a {
+.sidebar ul li:hover a {
     padding-left: 70px;
     color: #dc3545;
 }
@@ -82,14 +83,13 @@ label #btn,
 label #cancel {
     position: absolute;
     cursor: pointer;
-    background: #042331;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 label #btn {
-    right: 20px;
-    top: 5px;
-    font-size: 35px;
+    right: 25px;
+    top: 10px;
+    font-size: 33px;
     color: white;
     padding: 6px 12px;
     transition: all .5s ease;
@@ -101,7 +101,7 @@ label #cancel {
     left: -195px;
     top: 17px;
     font-size: 30px;
-    color: #0a5275;
+    color: white;
     padding: 4px 9px;
     transition: all .5s ease;
 }
@@ -152,5 +152,4 @@ label #cancel {
         color: white;
         font-size: 20px;
     }
-
 }

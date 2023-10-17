@@ -28,10 +28,10 @@
     }
 </style>
 
-<div id="myFavorite{{favorite.product.id}}" class="card mt-3 mb-3" style="width: 100%;">
+<div id="myFavorite{{favorite.product.id}}" class="card" style="width: 100%; margin-top: 65px; margin-bottom: -30px;">
     <div class="row">
         <div class="col-md-3">
-            <img src="{{ favorite.product.image.url }}" class="img-fluid rounded-start"
+            <img src="{{ favorite.product.image.url }}" style="width: 100%;" class="img-fluid rounded-start"
                 alt="{{favorite.product.title}}">
         </div>
         <div class="col-md-9">
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div class="alert alert-warning" id="favoriteAlert" style="text-align: center; font-size: large; font-weight: bold; display: none;">Favorilerim
+<div class="alert alert-warning" id="favoriteAlert" style="text-align: center; font-size: large; font-weight: bold; display: none; margin-top: 70px;">Favorilerim
     kısmında ürün bulunmamaktadır</div>
 
 <div class="modal fade" id="exampleModal{{ favorite.product.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"

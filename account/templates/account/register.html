@@ -7,7 +7,7 @@
 
 {% block body %}
 
-<div class="container mt-5">
+<div class="container" style="margin-top: 70px;">
     <form action="{% url 'register' %}" method="post" name="register_form">
         {% csrf_token %}
 
@@ -38,14 +38,14 @@
                 <input class="form-control" type="email" name="email" value="{{email}}" required>
             </div>
 
-            <div class="col-12 mt-4">
+            <!--<div class="col-12 mt-4">
                 {{ form.address.label_tag }}
-                <input class="form-control" type="text" name="address" value="{{adres}}" required>
-            </div>
+                <input class="form-control" type="text" name="address" value="{{adres}}" placeholder="Bu alan zorunlu değildir !">
+            </div>-->
 
             <div class="col-12 mt-4">
                 {{ form.phone_number.label_tag }}
-                <input class="form-control" type="text" name="phone_number" value="{{phone_number}}" required>
+                <input class="form-control" type="text" name="phone_number" value="{{phone_number}}" placeholder="Bu alan zorunlu değildir !">
             </div>
 
             <div class="col-6 mt-4">

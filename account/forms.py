@@ -1,5 +1,6 @@
 from django import forms
-from .models import UserModel
+from .models import UserModel, addresses
+
 
 class CustomRegisterForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'autocomplete': 'off'}), label="Ad")
@@ -43,3 +44,22 @@ class adminLoginForm(forms.ModelForm):
     class Meta:
         model = UserModel
         fields = ('username','password1')
+
+
+class profilePhotoForm(forms.ModelForm):
+    profile_photo = forms.ImageField(widget=forms.FileInput(attrs={"class":"profile_photo_input"}))
+    class Meta:
+        model = UserModel
+        fields = ('profile_photo', )
+
+
+class addressForm(forms.ModelForm):
+    city = forms.CharField(widget=forms.TextInput(attrs={"id":"city"}),label='Şehir' )
+    county = forms.CharField(widget=forms.TextInput(attrs={"id":"county"}),label='İlçe')
+    district = forms.CharField(widget=forms.TextInput(attrs={"id":"district"}),label='Mahalle')
+    street = forms.CharField(widget=forms.TextInput(attrs={"id":"street"}),label='Sokak')
+    number = forms.CharField(widget=forms.TextInput(attrs={"id":"number"}),label='No')
+    class Meta:
+        model = addresses
+        fields = ('city', 'county', 'district', 'street', 'number',)
+

@@ -1,0 +1,206 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_file %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/addressForm.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="zone">
+        <table class="mobile_table">
+            <tr>
+                <th>Ad &nbsp; : &nbsp; {{ request.user.name|title }}</th>
+                <!--<th>: &nbsp; {{ request.user.name|title }}</th>-->
+            </tr>
+            <tr>
+                <th>Soyad &nbsp; : &nbsp; {{ request.user.surname|title }}</th>
+                <!--<th>: &nbsp; {{ request.user.surname|title }}</th>-->
+            </tr>
+            <tr>
+                <th>Kullanıcı adı &nbsp; : &nbsp; {{ request.user.username }}</th>
+                <!--<th>: &nbsp; {{ request.user.username }}</th>-->
+            </tr>
+            <tr>
+                <th>E-posta &nbsp; : &nbsp; {{ request.user.email }}</th>
+                <!--<th>: &nbsp; {{ request.user.email }}</th>-->
+            </tr>
+            <tr>
+                <th>Tel No &nbsp; : &nbsp; {{ request.user.phone_number }}</th>
+                <!--<th>:  &nbsp; {{ request.user.phone_number }}</th>-->
+            </tr>
+            <tr>
+                <th>Adres &nbsp; : &nbsp; {{ request.user.address|safe }}</th>
+                {% if request.user.address %}
+                <!--<th>: &nbsp; {{ request.user.address|safe }}</th>-->
+                {% else %}
+                <!--<th>: &nbsp; adres bilginiz bulunmamaktadır</th>-->
+                {% endif %}
+            </tr>
+        </table>
+
+        <div class="mobile_border"></div>
+
+        <form method="post" enctype="multipart/form-data" action="{% url 'profile' %}">
+            {% csrf_token %}
+            <i class="fa-solid fa-pen-to-square"></i>
+            <div class="profile_photo">
+                <img id="profile-photo-preview" class="img" alt="profil fotoğrafı bulunamadı" name="profile_photo"
+                    src="{{request.user.profile_photo.url}}" width="250px" height="250px">
+                {{ form.profile_photo }}
+            </div>
+            <button type="submit" class="profile_photo_button btn btn-outline-primary">Resmi kaydet</button>
+        </form>
+
+        <button class="append_address btn btn-outline-secondary" data-bs-toggle="modal"
+            data-bs-target="#formModal">Adres
+            ekle</button>
+        <button class="update_address btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#myModal">Adres
+            değiştir</button>
+
+        {% if error %}
+        <div class="alertError">{{error}}</div>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="modal fade static-modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #343434;">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: white;">Adreslerim</h1>
+            </div>
+            {% if address|length > 0 %}
+            <div class="modal-body">
+                <form method="post" id="change" action="{% url 'change_address' %}">
+                    {% csrf_token %}
+                    {% for adres in address %}
+                    <div class="addressZone">
+                        <input class="w3-radio" type="radio" id="adres{{adres.id}}" name="adres" value={{adres}}>
+                        <label class="btn btn-address" for="adres{{adres.id}}"
+                            style="font-size: 15px; font-weight: bold;">{{adres|safe}}</label>
+                        <button class="btn btn-outline-success btn-sm deleteBtn" type="button" data-bs-toggle="modal"
+                            data-bs-target="#delete_address_modal" onclick="showDeleteModal('{{ adres }}'), setDeleteFormId('{{adres.id}}')">sil</button>
+                    </div>
+                    <br><br>
+                    {% endfor %}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closed()"
+                    data-bs-dismiss="modal">kapat</button>
+                <button type="submit" class="btn btn-success" form="change" data-bs-dismiss="modal">kaydet</button>
+            </div>
+            {% else %}
+            <div class="modal-body">
+                <div class="alert alert-success" style="text-align: center; font-weight: bold; margin: 0px 20px;">
+                    Sistemde kayıtlı adresiniz
+                    bulunmamaktadır !<br>- Adres eklemeyi deneyin -</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">kapat</button>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+<form method="post" id="delete_address_form" action="">
+    {% csrf_token %}
+</form>
+
+<div class="modal fade" id="delete_address_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #343434;">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel"
+                    style="color: white; font-size: 2px; font-weight: lighter;">
+                    <p id="delete_modal_title">adres</p>
+                </h1>
+            </div>
+            <div class="modal-body" style="font-weight: 600; height: 100px; font-size: large; line-height: 60px;">
+                Adresi silmek istediğinden emin misin !
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hayır</button>
+                <button type="submit" form="delete_address_form" class="btn btn-danger">Evet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #343434;">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: white;">Adres bilgileri</h1>
+            </div>
+            <div class="modal-body Modal-body">
+                <form method="post" id="append" action="{% url 'addAddress' %}">
+                    {% csrf_token %}
+                    {{addressForm}}
+                    {{addressForm.label_tag}}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">kapat</button>
+                <button type="submit" class="btn btn-success" form="append">kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% block js_file %}
+<script>
+
+    document.getElementById('profile-photo-input').addEventListener('change', function (event) {
+        var input = event.target;
+        var file = input.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function () {
+            document.getElementById('profile-photo-preview').src = reader.result;
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    function sanitizeHTML(input) {
+        var sanitizedAddress = input.replace(/&nbsp/g, ' ');
+        return sanitizedAddress;
+    };
+
+    function showDeleteModal(address) {
+        var sanitize_address = sanitizeHTML(address);
+        var deleteModalTitle = document.getElementById("delete_modal_title");
+        deleteModalTitle.textContent = sanitize_address;
+    }
+
+    function closed() {
+        var radioButtons = document.getElementsByName('adres');
+        for (var i = 0; i < radioButtons.length; i++) {
+            radioButtons[i].checked = false;
+        }
+    }
+
+
+    function setDeleteFormId(adresId) {
+        var deleteForm = document.getElementById('delete_address_form');
+        deleteForm.action = 'delete_address/' + adresId;
+    }
+
+    
+
+</script>
+{% endblock %}
+{% endblock %}

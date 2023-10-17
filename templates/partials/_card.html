@@ -1,39 +1,81 @@
 {% load static %}
 
-<div class="card mt-5 " style="width: 100%;">
-    <img src="{{ shop_model.image.url }}" class="card-img-top">
+{% block css_file %}
+
+<style>
+    .style {
+        width: 100%;
+        height: 80%;
+        margin-top: 65px;
+        border: 1px solid black;
+        border-radius: 50px;
+    }
+
+    .favorite_style {
+        float: right;
+        margin-top: -105%;
+    }
+
+    .modal_img {
+        float: right;
+        width: 300px;
+    }
+
+    @media screen and (max-width:920px) {
+        .style {
+            margin-top: 65px;
+            height: 90%;
+        }
+
+        .favorite_style {
+            float: right;
+            margin-top: -95%;
+        }
+
+        .modal_img {
+            float: right;
+            width: 170px;
+        }
+    }
+</style>
+
+{% endblock %}
+
+<div class="card style">
+    <img src="{{ shop_model.image.url }}" class="card-img-top"
+        style="border-radius: 60px; width: 68%; margin-top: 10px;">
     <div class="card-body text-center">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3 class="card-title">{{ shop_model.title|title }}</h3>
+        <hr>
+        <h3 class="card-title">{{ shop_model.title|title }}</h3>
+        <div class="favorite_style">
             {% if not user.is_authenticated %}
             <a href="javascript:void(0);">
-                <i style="color: gray;" class="fas fa-star h3" type="button" data-bs-target="#accountModal"
+                <i style="color: gray; font-size: 35px;" class="fas fa-star h3" type="button" data-bs-target="#accountModal"
                     data-bs-toggle="modal"></i>
             </a>
             {% else %}
             <a href="javascript:void(0);">
-                <i style="color: gray;" onclick="toggleFavorite(this, {{ shop_model.id }})"
-                    class="fas fa-star h3 {% if shop_model.id in favorite_products %} text-warning {% endif %}"
+                <i style="color: gray; font-size: 35px;" onclick="toggleFavorite(this, {{ shop_model.id }})"
+                    class="fas fa-star {% if shop_model.id in favorite_products %} text-warning {% endif %}"
                     type="button"></i>
             </a>
             {% endif %}
         </div>
-        <hr>
         <p style="font-size: larger; font-size: 22px;">Fiyat : ${{ shop_model.price }}</p>
         <div class="card-footer">
             <div class="btn-group" style="width: 100%; margin-top: 10px;">
-                <a href="" class="btn btn-outline-primary btn-lg" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal{{shop_model.id}}">İncele</a>
+                <a href="" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal{{shop_model.id}}" style="font-size: large;">İncele</a>
                 {% if not user.is_authenticated %}
                 <a href=" javascript:void(0)" class="btn btn-outline-danger btn-lg" data-bs-target="#accountModal"
-                    data-bs-toggle="modal">Sepete Ekle</a>
+                    data-bs-toggle="modal" style="font-size: large;">Sepete Ekle</a>
                 {% else %}
                 {% if shop_model.id in busket_products %}
-                <a href="javascript:void(0)" class="btn btn-outline-danger btn-lg"
-                    id="basketButton{{ shop_model.id }}">Ürün Sepette</a>
+                <a href="javascript:void(0)" class="btn btn-outline-danger"
+                    id="basketButton{{ shop_model.id }}" style="font-size: large;">Ürün Sepette</a>
                 {% else %}
                 <a href=" javascript:void(0)" onclick="toggleBasket({{ shop_model.id }})"
-                    class="btn btn-outline-danger btn-lg" id="basketButton{{ shop_model.id }}">Sepete Ekle</a>
+                    class="btn btn-outline-danger" id="basketButton{{ shop_model.id }}" style="font-size: large;">Sepete Ekle</a>
                 {% endif %}
                 {% endif %}
             </div>
@@ -44,7 +86,7 @@
 
 <div class="modal fade" id="exampleModal{{shop_model.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-primary">
                 <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">{{ shop_model.title|title }}
@@ -52,9 +94,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img src="{{ shop_model.image.url }}" alt="shop_model.title"
-                    style="float: right; width: 200px;">
-                <p style="text-align: center; font-size: 20px; font-weight: bold; color: black;">{{shop_model.title|title}}</p>
+                <img src="{{ shop_model.image.url }}" alt="shop_model.title" class="modal_img">
+                <p style="text-align: center; font-size: 20px; font-weight: bold; color: black;">
+                    {{shop_model.title|title}}</p>
                 <hr>
                 <p>{{shop_model.content|safe}}</p>
             </div>

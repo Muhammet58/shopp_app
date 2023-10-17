@@ -7,14 +7,14 @@
     .style {
         position: relative;
         width: 100%;
-        bottom: -80px;
+        bottom: -70px;
     }
 
     @media screen and (max-width:900px) {
         .style {
             position: relative;
             width: 100%;
-            top: 0;
+            top: -5px;
         }
     }
 </style>
@@ -28,14 +28,14 @@
         {% for shopping in shopping_model %}
 
         <div class="col-6">
-            <div class="card mt-5" id="product{{shopping.id}}">
+            <div class="card" id="product{{shopping.id}}" style="margin-top: 60px; margin-bottom: -20px;">
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="{{shopping.image.url}}" class="img-fluid rounded-start">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title" style="text-align: center;">{{shopping.title|title}}</h5>
+                            <h5 class="card-title" style="text-align: center; font-size: 23px;">{{shopping.title|title}}</h5>
                             <hr>
                             <p class="card-text">
                                 <a class="btn btn-outline-danger style" data-bs-toggle="modal"
@@ -47,8 +47,8 @@
                 </div>
             </div>
         </div>
-        <div id="product_remove_alert" class="alert mt-5"
-            style="text-align: center; font-size: large; background: crimson; color: white; display: none;">
+        <div id="product_remove_alert" class="alert"
+            style="text-align: center; font-size: large; background: crimson; color: white; display: none; margin-top: 70px;">
             Sistemde kayıtlı ürün bulunamadı</div>
 
         <div class="modal fade" id="removeModal{{shopping.id}}" aria-labelledby="exampleModalLabel" aria-hidden="true">
