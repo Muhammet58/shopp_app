@@ -21,11 +21,13 @@ def add_to_mybasket(request, product_id):
 
     if not created:
         basket.quantity += 1 
-        basket.save(comiit=False)
+        basket.save(commit=False)
         basket.user = request.user
         basket.save()
+    else:
+        message = "success"
 
-    return JsonResponse({'message': not created})
+    return JsonResponse({'message': message})
 
 
 
@@ -110,8 +112,11 @@ def add_to_favorite(request, product_id):
 
     if not created:
         favorite.delete()
+        message = "removed"
+    else:
+        message = "added"
 
-    return JsonResponse({'message': not created})
+    return JsonResponse({'message': message})
 
 
 
@@ -158,9 +163,7 @@ def product_remove(request, id):
 
         return JsonResponse({"message":"deleted", "item_quantity":item_quantity})
                     
-
-
-    
+   
 
 def address(request):
     selected_address = request.GET.get('selected_address')

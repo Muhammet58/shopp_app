@@ -12,7 +12,11 @@ function toggleFavorite(icon, product_id) {
         dataType: 'json',
         data: { 'csrfmiddlewaretoken': csrfToken },
         success: function (response) {
-            $(icon).toggleClass('text-warning');
+            if (response.message == "added") {
+                $(icon).toggleClass('text-warning');
+            } else {
+                $(icon).toggleClass('text-warning');
+            }
         },
         error: function () {
             alert("Hata oluştu !");
@@ -29,7 +33,6 @@ function toggleBasket(product_id) {
 
     var csrf_token = "{{ csrf_token }}";
     var button = document.getElementById("basketButton" + product_id);
-    var buttonModal = document.getElementById("basketButtonModal" + product_id);
 
     $.ajax({
         type: "GET",
@@ -37,10 +40,12 @@ function toggleBasket(product_id) {
         dataType: "json",
         data: { "csrfmiddlewaretoken": csrf_token },
         success: function (response) {
-            addedToBasket.push(product_id);
-            button.innerText = "Ürün Sepette";
-            buttonModal.innerText = "Ürün Sepette";
-
+            if (response.message === "success") {
+                addedToBasket.push(product_id);
+                button.innerText = "Ürün Sepette";
+            } else {
+                button.innerText = "Sepete Ekle"
+            }
         },
         error: function () {
             alert("Hata oluştu !");

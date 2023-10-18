@@ -74,7 +74,7 @@
                 <a href="javascript:void(0)" class="btn btn-outline-danger"
                     id="basketButton{{ shop_model.id }}" style="font-size: large;">Ürün Sepette</a>
                 {% else %}
-                <a href=" javascript:void(0)" onclick="toggleBasket({{ shop_model.id }})"
+                <a href=" javascript:void(0)" onclick="toggleBasket('{{ shop_model.id }}')"
                     class="btn btn-outline-danger" id="basketButton{{ shop_model.id }}" style="font-size: large;">Sepete Ekle</a>
                 {% endif %}
                 {% endif %}
