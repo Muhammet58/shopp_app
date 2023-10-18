@@ -46,27 +46,23 @@
 				<h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">Kart Bilgileri</h1>
 			</div>
 			<div class="modal-body">
-				<form method="post" action="{% url 'buy_products' %}" id="buy_products">
-					{% csrf_token %}
-					<div class="mb-3">
-						<label style="font-weight: bold; font-size: large;" for="NO" class="col-form-label">Kart
-							No:</label>
-						<input style="border: 2px solid black; color: black; font-weight: bold;" type="text"
-							class="form-control" name="NO" id="NO" placeholder="12345678901" required>
-					</div>
-					<div class="mb-3">
-						<label style="font-weight: bold; font-size: large;" for="SKT" class="col-form-label">Son
-							Kullanma Tarihi:</label>
-						<input style="border: 2px solid black; color: black; font-weight: bold;" type="text"
-							class="form-control" name="SKT" id="SKT" placeholder="12/27" required></input>
-					</div>
-					<div class="mb-3">
-						<label style="font-weight: bold; font-size: large;" for="CVV"
-							class="col-form-label">CVV:</label>
-						<input style="border: 2px solid black; color: black; font-weight: bold;" type="text"
-							class="form-control" name="CVV" id="CVV" placeholder="378" required></input>
-					</div>
-				</form>
+				<div class="mb-3">
+					<label style="font-weight: bold; font-size: large;" for="NO" class="col-form-label">Kart
+						No:</label>
+					<input style="border: 2px solid black; color: black; font-weight: bold;" type="text"
+						class="form-control" name="NO" id="NO" placeholder="12345678901" required>
+				</div>
+				<div class="mb-3">
+					<label style="font-weight: bold; font-size: large;" for="SKT" class="col-form-label">Son
+						Kullanma Tarihi:</label>
+					<input style="border: 2px solid black; color: black; font-weight: bold;" type="text"
+						class="form-control" name="SKT" id="SKT" placeholder="12/27" required></input>
+				</div>
+				<div class="mb-3">
+					<label style="font-weight: bold; font-size: large;" for="CVV" class="col-form-label">CVV:</label>
+					<input style="border: 2px solid black; color: black; font-weight: bold;" type="text"
+						class="form-control" name="CVV" id="CVV" placeholder="378" required></input>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" onclick="resetForm()"
@@ -114,17 +110,22 @@
 				<form id="change" method="get" action="{% url 'address' %}">
 					{% for adres in address %}
 					<div class="addressZone">
-						<input class="w3-radio" type="radio" id="adres{{adres.id}}" name="selected_address" value={{adres}}>
-						<label class="btn btn-address" for="adres{{adres.id}}" style="font-size: 15px; font-weight: bold;">{{adres|safe}}</label>
+						<input class="w3-radio" type="radio" id="adres{{adres.id}}" name="selected_address"
+							value={{adres}}>
+						<label class="btn btn-address" for="adres{{adres.id}}"
+							style="font-size: 15px; font-weight: bold;">{{adres|safe}}</label>
 					</div>
 					<br><br>
 					{% endfor %}
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" onclick="closed()" data-bs-dismiss="modal">kapat</button>
-				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#addressModal">Geri</button>
-				<a href="javascript:void(0)" onclick="change_address()" class="btn btn-success" form="change" data-bs-toggle="modal" data-bs-target="#addressModal">kaydet</a>
+				<button type="button" class="btn btn-secondary" onclick="closed()"
+					data-bs-dismiss="modal">kapat</button>
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal"
+					data-bs-target="#addressModal">Geri</button>
+				<a href="javascript:void(0)" onclick="change_address()" class="btn btn-success" form="change"
+					data-bs-toggle="modal" data-bs-target="#addressModal">kaydet</a>
 			</div>
 			{% else %}
 			<div class="modal-body">
@@ -133,7 +134,8 @@
 					bulunmamaktadır !<br>- Adres eklemeyi deneyin -</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#addressModal">Geri</button>
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal"
+					data-bs-target="#addressModal">Geri</button>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">kapat</button>
 			</div>
 			{% endif %}
@@ -142,6 +144,9 @@
 	</div>
 </div>
 
+<form method="post" action="{% url 'buy_products' %}" id="buy_products">
+	{% csrf_token %}
+</form>
 
 <div class="modal fade" id="buyModalToggle" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
 	aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
