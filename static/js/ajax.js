@@ -180,23 +180,46 @@ function product_remove(product_id) {
     const product = document.getElementById("product" + product_id);
     const product_alert = document.getElementById("product_remove_alert");
 
-    $.ajax ({
+    $.ajax({
         type: "GET",
         url: "/product_remove/" + product_id,
         dataType: "json",
         data: { "csrfmiddlewaretoken": csrf_token },
-        success: function(response) {
+        success: function (response) {
             if (response.message == "deleted") {
                 product.remove()
             }
-            
-            if(response.item_quantity === 0) {
+
+            if (response.item_quantity === 0) {
                 product_alert.style.display = "block"
             }
 
-        }, 
-        error: function() {
+        },
+        error: function () {
             alert("Hata oluştu !")
         }
     })
 }
+
+
+
+function change_address() {
+    var selectedAddress = $('input[name="selected_address"]:checked').val();
+    var csrf_token = "{{ csrf_token }}";
+
+    $.ajax({
+        type: 'GET',
+        url: 'address',
+        data: { 'selected_address': selectedAddress, 'csrfmiddlewaretoken': csrf_token },
+        success: function(response) {
+            if (response.message === 'success') {
+                var newAddress = response.new_address;
+                $('#addressElemetId').text("Adres: " + newAddress);
+            }
+        },
+        error: function() {
+            alert("Hata oluştu!");
+        }
+    });
+}
+

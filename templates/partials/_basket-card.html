@@ -66,9 +66,9 @@
                 {% endif %}-->
                
                 <div class="d-flex align-items-center">
-                    <a href="javascript:void(0)" onclick="toggleDecrease({{basket.id}})" class="btn btn-outline-primary btn-lg" id="decreaseButton{{basket.id}}" {% if basket.quantity == 1 %} style="display: none;" {% endif %}>-</a>
+                    <a href="javascript:void(0)" onclick="toggleDecrease('{{basket.id}}')" class="btn btn-outline-primary btn-lg" id="decreaseButton{{basket.id}}" {% if basket.quantity == 1 %} style="display: none;" {% endif %}>-</a>
                     <p class="card-text quantity_style mx-3" style="font-size: x-large;">Adet : <span id="quantityText{{basket.id}}">{{basket.quantity}}</span></p>
-                    <a href="javascript:void(0)" onclick="toggleIncrease({{basket.id}})" class="btn btn-outline-primary btn-lg" id="increaseButton{{basket.id}}">+</a>
+                    <a href="javascript:void(0)" onclick="toggleIncrease('{{basket.id}}')" class="btn btn-outline-primary btn-lg" id="increaseButton{{basket.id}}">+</a>
                 </div>                
                 
 

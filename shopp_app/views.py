@@ -140,7 +140,6 @@ def product_add(request):
 
 
 
-
 def product_remove_page(request):
     if request.user.is_superuser and request.user.is_authenticated:
         data = {
@@ -160,14 +159,12 @@ def product_remove(request, id):
         return JsonResponse({"message":"deleted", "item_quantity":item_quantity})
                     
 
-def ADDRESS(request):
-    address = addresses.objects.filter(userAddress=request.user)
-    if request.method == 'POST':
-        adres = request.POST.get('adres')
-        if adres:
-            request.user.address = adres
-            request.user.save()
-            return redirect('shoppingPage')
-        else:
-            return render(request, "shopp_app/shoppingPage.html", {"error":"Bir adres seçmelisiniz !", "address":address})
-    return redirect('shoppingPage')   
+
+    
+
+def address(request):
+    selected_address = request.GET.get('selected_address')
+    request.user.address = selected_address
+    request.user.save()
+    return JsonResponse({"message": "success", "new_address": selected_address})
+

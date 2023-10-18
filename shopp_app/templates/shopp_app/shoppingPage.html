@@ -38,7 +38,8 @@
 	{% endif %}
 </div>
 
-<div class="modal fade" id="ProductModal" tabindex="-1"  data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="ProductModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header bg-dark">
@@ -79,7 +80,8 @@
 
 
 
-<div class="modal fade" id="addressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div class="modal fade" id="addressModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header bg-dark">
@@ -87,7 +89,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body" style="color: black; font-weight: bold;">
-				<p style="font-size: 13px;" id="userAddress">Adres : {{ request.user.address|safe }}</p>
+				<p style="font-size: 13px;" id="addressElemetId">Adres : {{ request.user.address|safe }}</p>
 				<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Adres değiştir</button>
 			</div>
 			<div class="modal-footer">
@@ -101,48 +103,48 @@
 
 
 <div class="modal fade static-modal" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header" style="background: #343434;">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: white;">Adreslerim</h1>
-            </div>
-            {% if address|length > 0 %}
-            <div class="modal-body">
-                <form method="post" id="change" action="{% url 'ADDRESS' %}">
-                    {% csrf_token %}
-                    {% for adres in address %}
-                    <div class="addressZone">
-                        <input class="w3-radio" type="radio" id="adres{{adres.id}}" name="adres" value={{adres}}>
-                        <label class="btn btn-address" for="adres{{adres.id}}"
-                            style="font-size: 15px; font-weight: bold;">{{adres|safe}}</label>
-                    </div>
-                    <br><br>
-                    {% endfor %}
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="closed()"
-                    data-bs-dismiss="modal">kapat</button>
-                <button type="submit" class="btn btn-success" form="change" data-bs-dismiss="modal">kaydet</button>
-            </div>
-            {% else %}
-            <div class="modal-body">
-                <div class="alert alert-success" style="text-align: center; font-weight: bold; margin: 0px 20px;">
-                    Sistemde kayıtlı adresiniz
-                    bulunmamaktadır !<br>- Adres eklemeyi deneyin -</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">kapat</button>
-            </div>
-            {% endif %}
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-header" style="background: #343434;">
+				<h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: white;">Adreslerim</h1>
+			</div>
+			{% if address|length > 0 %}
+			<div class="modal-body">
+				<form id="change" method="get" action="{% url 'address' %}">
+					{% for adres in address %}
+					<div class="addressZone">
+						<input class="w3-radio" type="radio" id="adres{{adres.id}}" name="selected_address" value={{adres}}>
+						<label class="btn btn-address" for="adres{{adres.id}}" style="font-size: 15px; font-weight: bold;">{{adres|safe}}</label>
+					</div>
+					<br><br>
+					{% endfor %}
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" onclick="closed()" data-bs-dismiss="modal">kapat</button>
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#addressModal">Geri</button>
+				<a href="javascript:void(0)" onclick="change_address()" class="btn btn-success" form="change" data-bs-toggle="modal" data-bs-target="#addressModal">kaydet</a>
+			</div>
+			{% else %}
+			<div class="modal-body">
+				<div class="alert alert-success" style="text-align: center; font-weight: bold; margin: 0px 20px;">
+					Sistemde kayıtlı adresiniz
+					bulunmamaktadır !<br>- Adres eklemeyi deneyin -</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#addressModal">Geri</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">kapat</button>
+			</div>
+			{% endif %}
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 
-<div class="modal fade" id="buyModalToggle" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div class="modal fade" id="buyModalToggle" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true"
+	aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header bg-dark">

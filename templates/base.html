@@ -45,8 +45,10 @@
             <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
             <li><a href="{% url 'my_favorite'  %}"><i class="fa-solid fa-star"></i>Favorilerim</a></li>
             <li><a href="{% url 'product_add' %}"><i class="fa-solid fa-plus"></i>Ürün ekle</a></li>
-            <li><a href="{% url 'product_remove_page' %}"><i class="fa-solid fa-minus"></i></fa-solid>Ürün kaldır</a></li>
-            <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
+            <li><a href="{% url 'product_remove_page' %}"><i class="fa-solid fa-minus"></i></fa-solid>Ürün kaldır</a>
+            </li>
+            <li><a href="" data-bs-toggle="modal" data-bs-target="#logoutModal"><i
+                        class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
         </ul>
         {% else %}
         {% if user.is_authenticated %}
@@ -56,7 +58,7 @@
             <li><a href="{% url 'profile' %}"><i class="fa-solid fa-id-card-clip"></i>Profilim</a></li>
             <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
             <li><a href="{% url 'my_favorite'  %}"><i class="fa-solid fa-star"></i>Favorilerim</a></li>
-            <li><a href="{% url 'logout' %}"><i class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
+            <li><a href="" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
             <li class="username">Hoşgeldin<br>{{ request.user.username }}</li>
         </ul>
         {% else %}
@@ -68,6 +70,26 @@
         </ul>
         {% endif %}
         {% endif %}
+    </div>
+
+    <div class="modal fade" id="logoutModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: #343434;">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: white; font-size: large;">Hesap
+                        çıkış</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Hesaptan çıkmak istediğinizden emin misiniz ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">hayır</button>
+                    <a type="button" href="{% url 'logout' %}" class="btn btn-danger">evet</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     {% block body %}{% endblock %}

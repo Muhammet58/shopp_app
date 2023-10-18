@@ -4,7 +4,7 @@ from .forms import CustomRegisterForm, CustomLoginForm, createAdminForm, adminLo
 from .models import UserModel, addresses
 
 def user_login(request):
-    if request.method == "POST":
+    if request.method == "POST":    
         username1 = request.POST["username"]
         password1 = request.POST["password"]
 
