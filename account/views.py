@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import logout, authenticate, login
-from .forms import CustomRegisterForm, CustomLoginForm, createAdminForm, adminLoginForm, profilePhotoForm, addressForm
+from .forms import CustomRegisterForm, CustomLoginForm, createAdminForm, adminLoginForm, addressForm, profilePhotoForm
 from .models import UserModel, addresses
 
 def user_login(request):

@@ -32,11 +32,10 @@
                 <!--<th>:  &nbsp; {{ request.user.phone_number }}</th>-->
             </tr>
             <tr>
-                <th>Adres &nbsp; : &nbsp; {{ request.user.address|safe }}</th>
                 {% if request.user.address %}
-                <!--<th>: &nbsp; {{ request.user.address|safe }}</th>-->
+                <th>Adres &nbsp; : &nbsp; {{ request.user.address|safe }}</th>
                 {% else %}
-                <!--<th>: &nbsp; adres bilginiz bulunmamaktadır</th>-->
+                <th>Adres &nbsp; : &nbsp; sistemde adres bulunamadı !</th>
                 {% endif %}
             </tr>
         </table>
@@ -47,7 +46,7 @@
             {% csrf_token %}
             <i class="fa-solid fa-pen-to-square"></i>
             <div class="profile_photo">
-                <img id="profile-photo-preview" class="img" alt="profil fotoğrafı bulunamadı" name="profile_photo"
+                <img id="profile-photo-preview" class="img" style="color: white; line-height: 250px;" alt="profil fotoğrafı bulunamadı" name="profile_photo"
                     src="{{request.user.profile_photo.url}}" width="250px" height="250px">
                 {{ form.profile_photo }}
             </div>

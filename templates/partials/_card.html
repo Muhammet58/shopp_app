@@ -55,7 +55,7 @@
             </a>
             {% else %}
             <a href="javascript:void(0);">
-                <i style="color: gray; font-size: 35px;" onclick="toggleFavorite(this, {{ shop_model.id }})"
+                <i style="color: gray; font-size: 35px;" onclick="toggleFavorite(this, '{{ shop_model.id }}')"
                     class="fas fa-star {% if shop_model.id in favorite_products %} text-warning {% endif %}"
                     type="button"></i>
             </a>
