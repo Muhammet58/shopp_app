@@ -144,20 +144,20 @@ form i {
     }
 
     .profile_photo {
-        position: fixed;
+        position: absolute;
         right: 1.5%;
         top: 67%;
         width: 55%;
     }
 
     form i {
-        position: fixed;
+        position: absolute;
         margin-top: 40.5rem;
         margin-right: -6.5rem;
     }
 
     .append_address {
-        position: fixed;
+        position: absolute;
         top: 78.5%;
         right: 58%;
         width: 40%;
@@ -166,7 +166,7 @@ form i {
     }
     
     .update_address {
-        position: fixed;
+        position: absolute;
         top: 67.5%;
         right: 58%;
         width: 40%;
@@ -175,7 +175,7 @@ form i {
     }
 
     .profile_photo_button {
-        position: fixed;
+        position: absolute;
         top: 89%;
         right: 58%;
         width: 40%;
