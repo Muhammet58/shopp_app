@@ -139,26 +139,26 @@ form i {
 
     .zone {
         width: 100%;
-        height: 700px;
+        height: 630px;
         margin-top: 70px;
     }
 
     .profile_photo {
         position: absolute;
         right: 1.5%;
-        top: 67%;
+        top: 58%;
         width: 55%;
     }
 
     form i {
         position: absolute;
-        margin-top: 40.5rem;
+        margin-top: 36rem;
         margin-right: -6.5rem;
     }
 
     .append_address {
         position: absolute;
-        top: 78.5%;
+        top: 70%;
         right: 58%;
         width: 40%;
         height: 80px;
@@ -167,7 +167,7 @@ form i {
     
     .update_address {
         position: absolute;
-        top: 67.5%;
+        top: 59%;
         right: 58%;
         width: 40%;
         height: 85px;
@@ -176,7 +176,7 @@ form i {
 
     .profile_photo_button {
         position: absolute;
-        top: 89%;
+        top: 80.5%;
         right: 58%;
         width: 40%;
         height: 70px;
