@@ -59,7 +59,6 @@
             <li><a href="{% url 'shoppingPage' %}"><i class="fa-solid fa-basket-shopping"></i>Sepetim</a></li>
             <li><a href="{% url 'my_favorite'  %}"><i class="fa-solid fa-star"></i>Favorilerim</a></li>
             <li><a href="" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="fa-solid fa-right-from-bracket"></i>Çıkış Yap</a></li>
-            <li class="username">Hoşgeldin<br>{{ request.user.username }}</li>
         </ul>
         {% else %}
         <header>MENU</header>
