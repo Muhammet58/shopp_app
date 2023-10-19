@@ -54,17 +54,11 @@
                     data-bs-toggle="modal"></i>
             </a>
             {% else %}
-            {% if request.user %}
             <a href="javascript:void(0);">
                 <i style="color: gray; font-size: 35px;" onclick="toggleFavorite(this, '{{ shop_model.id }}')"
-                    class="fas fa-star {% if shop_model.id in favorite_products %} text-warning {% endif %}"
+                    class="fas fa-star {% if shop_model.id in favorite_products and user == request.user %} text-warning {% endif %}"
                     type="button"></i>
             </a>
-            {% else %}
-            <a href="javascript:void(0);">
-                <i style="color: gray; font-size: 35px;" class="fas fa-star {% if shop_model.id in favorite_products %} text-warning {% endif %}" type="button"></i>
-            </a>
-            {% endif %}
             {% endif %}
         </div>
         <p style="font-size: larger; font-size: 22px;">Fiyat : ${{ shop_model.price }}</p>
@@ -76,7 +70,7 @@
                 <a href=" javascript:void(0)" class="btn btn-outline-danger btn-lg" data-bs-target="#accountModal"
                     data-bs-toggle="modal" style="font-size: large;">Sepete Ekle</a>
                 {% else %}
-                {% if shop_model.id in busket_products %}
+                {% if shop_model.id in busket_products and user == request.user %}
                 <a href="javascript:void(0)" class="btn btn-outline-danger"
                     id="basketButton{{ shop_model.id }}" style="font-size: large;">Ürün Sepette</a>
                 {% else %}
