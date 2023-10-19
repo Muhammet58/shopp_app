@@ -54,11 +54,17 @@
                     data-bs-toggle="modal"></i>
             </a>
             {% else %}
+            {% if request.user %}
             <a href="javascript:void(0);">
                 <i style="color: gray; font-size: 35px;" onclick="toggleFavorite(this, '{{ shop_model.id }}')"
                     class="fas fa-star {% if shop_model.id in favorite_products %} text-warning {% endif %}"
                     type="button"></i>
             </a>
+            {% else %}
+            <a href="javascript:void(0);">
+                <i style="color: gray; font-size: 35px;" class="fas fa-star {% if shop_model.id in favorite_products %} text-warning {% endif %}" type="button"></i>
+            </a>
+            {% endif %}
             {% endif %}
         </div>
         <p style="font-size: larger; font-size: 22px;">Fiyat : ${{ shop_model.price }}</p>

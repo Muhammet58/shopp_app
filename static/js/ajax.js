@@ -55,7 +55,6 @@ function toggleBasket(product_id) {
 
 
 
-
 function toggleIncrease(product_id) {
     var csrf_token = "{{ csrf_token }}";
     var increase_text = document.getElementById("quantityText" + product_id);
@@ -84,6 +83,8 @@ function toggleIncrease(product_id) {
     });
 }
 
+
+
 function toggleDecrease(product_id) {
     var csrf_token = "{{ csrf_token }}"
     var decrease_text = document.getElementById("quantityText" + product_id);
@@ -111,6 +112,7 @@ function toggleDecrease(product_id) {
         },
     });
 }
+
 
 
 function toggleRemove(product_id) {
@@ -176,7 +178,6 @@ function toggleRemoveFavorite(product_id) {
         },
     });
 };
-
 
 
 
