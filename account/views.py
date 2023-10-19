@@ -223,4 +223,3 @@ def delete_address(request,id):
     if request.method == "POST":
         adres.delete()
         return redirect('profile')
-        

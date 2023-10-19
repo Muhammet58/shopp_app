@@ -7,8 +7,8 @@ from .forms import productAddForm
 def homePage(request):
     data = {
         "shopping_model": shopping_model.objects.all(),
-        "busket_products": myBasket_model.objects.filter(user=request.user).values_list('product__id', flat=True),
-        "favorite_products": myFavorite_model.objects.filter(user=request.user).values_list('product__id', flat=True),
+        "busket_products": myBasket_model.objects.filter(user=request.user.id).values_list('product__id', flat=True),
+        "favorite_products": myFavorite_model.objects.filter(user=request.user.id).values_list('product__id', flat=True),
         "product_quantity":shopping_model.objects.count()
     }
     return render(request, "shopp_app/homePage.html", data)
@@ -34,7 +34,7 @@ def add_to_mybasket(request, product_id):
 def shoppingPage(request):
      baskets = myBasket_model.objects.filter(user=request.user) 
      total_price = sum(item.product.price * item.quantity for item in baskets)
-     favorites = myFavorite_model.objects.filter().values_list("product__id", flat=True)
+     favorites = myFavorite_model.objects.filter(user=request.user.id).values_list("product__id", flat=True)
 
      context = {
          'baskets': baskets,
