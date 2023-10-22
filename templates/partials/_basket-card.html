@@ -31,7 +31,7 @@
 <div class="card" id="myProduct{{basket.id}}" style="width: 100%; margin-top: 70px; margin-bottom: -30px;">
     <div class="row">
         <div class="col-md-3">
-            <img src="{{basket.product.image.url }}" class="img-fluid rounded-start"
+            <img src="{{ basket.product.image.url }}" class="img-fluid rounded-start"
                 alt="{{ basket.product.title }}">
         </div>
         <div class="col-md-9">
@@ -46,32 +46,12 @@
                 <hr>
 
                 <p class="card-text" style="font-size: x-large;">Ürün Fiyatı : ${{basket.product.price }}</p>
-
-                <!--{% if basket.quantity == 1 %}
-                <div class="d-flex align-items-center">
-                    <p class="card-text quantity_style mx-3" style="font-size: x-large;">Adet :<span
-                            id="quantityText{{basket.id}}">{{basket.quantity}}</span></p>
-                    <a href="javascript:void(0)" onclick="toggleIncrease({{basket.id}})"
-                        class="btn btn-outline-primary btn-lg">+</a>
-                </div>
-                {% else %}
-                <div class="d-flex align-items-center">
-                    <a href="javascript:void(0)" onclick="toggleDecrease({{basket.id}})"
-                        class="btn btn-outline-primary btn-lg">-</a>
-                    <p class="card-text quantity_style mx-3" style="font-size: x-large;">Adet : <span
-                            id="quantityText{{basket.id}}">{{basket.quantity}}</span></p>
-                    <a href="javascript:void(0)" onclick="toggleIncrease({{basket.id}})"
-                        class="btn btn-outline-primary btn-lg">+</a>
-                </div>
-                {% endif %}-->
                
                 <div class="d-flex align-items-center">
                     <a href="javascript:void(0)" onclick="toggleDecrease('{{basket.id}}')" class="btn btn-outline-primary btn-lg" id="decreaseButton{{basket.id}}" {% if basket.quantity == 1 %} style="display: none;" {% endif %}>-</a>
                     <p class="card-text quantity_style mx-3" style="font-size: x-large;">Adet : <span id="quantityText{{basket.id}}">{{basket.quantity}}</span></p>
                     <a href="javascript:void(0)" onclick="toggleIncrease('{{basket.id}}')" class="btn btn-outline-primary btn-lg" id="increaseButton{{basket.id}}">+</a>
                 </div>                
-                
-
 
                 <a href="" class="btn btn-outline-danger info_style" data-bs-toggle="modal"
                     data-bs-target="#exampleModal{{basket.product.id}}">Ürün
@@ -120,8 +100,8 @@
                 <p>Ürün favorilerden de kaldırılsınmı ?</p>
             </div>
             <div class="modal-footer">
-                <a type="button" class="btn btn-secondary" href="javascript:void(0)" onclick="toggleRemove({{basket.id}})" data-bs-dismiss="modal">hayır</a>
-                <a type="button" class="btn btn-danger" href="javascript:void(0)" onclick="toggleRemove({{basket.id}}), toggleRemoveFavorite({{basket.product.id}})" data-bs-dismiss="modal" style="color: white;">evet</a>
+                <a type="button" class="btn btn-secondary" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}')" data-bs-dismiss="modal">hayır</a>
+                <a type="button" class="btn btn-danger" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}'), toggleRemoveFavorite({{basket.product.id}})" data-bs-dismiss="modal" style="color: white;">evet</a>
             </div>
             {% else %}
             <div class="modal-header bg-warning">
@@ -132,8 +112,8 @@
                 <p>Ürün favorilere eklensinmi ?</p>
             </div>
             <div class="modal-footer">
-                <a type="button" class="btn btn-secondary" href="javascript:void(0)" onclick="toggleRemove({{basket.id}})" data-bs-dismiss="modal">hayır</a>
-                <a type="button" class="btn btn-warning" href="javascript:void(0)" onclick="toggleRemove({{basket.id}}), toggleFavorite(this, {{basket.product.id}}) " data-bs-dismiss="modal" style="color: black;">evet</a>
+                <a type="button" class="btn btn-secondary" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}')" data-bs-dismiss="modal">hayır</a>
+                <a type="button" class="btn btn-warning" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}'), toggleFavorite(this, {{basket.product.id}}) " data-bs-dismiss="modal" style="color: black;">evet</a>
             </div>
             {% endif %}
         </div>

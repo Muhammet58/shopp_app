@@ -41,6 +41,7 @@
 
 {% endblock %}
 
+
 <div class="card style">
     <img src="{{ shop_model.image.url }}" class="card-img-top"
         style="border-radius: 60px; width: 68%; margin-top: 10px;">
@@ -50,8 +51,8 @@
         <div class="favorite_style">
             {% if not user.is_authenticated %}
             <a href="javascript:void(0);">
-                <i style="color: gray; font-size: 35px;" class="fas fa-star h3" type="button" data-bs-target="#accountModal"
-                    data-bs-toggle="modal"></i>
+                <i style="color: gray; font-size: 35px;" class="fas fa-star h3" type="button"
+                    data-bs-target="#accountModal" data-bs-toggle="modal"></i>
             </a>
             {% else %}
             <a href="javascript:void(0);">
@@ -71,17 +72,33 @@
                     data-bs-toggle="modal" style="font-size: large;">Sepete Ekle</a>
                 {% else %}
                 {% if shop_model.id in busket_products %}
-                <a href="javascript:void(0)" class="btn btn-outline-danger"
-                    id="basketButton{{ shop_model.id }}" style="font-size: large;">Ürün Sepette</a>
+                <a href="javascript:void(0)" class="btn btn-outline-danger" id="basketButton{{ shop_model.id }}" style="font-size: large;">Ürün Sepette</a>    
                 {% else %}
-                <a href=" javascript:void(0)" onclick="toggleBasket('{{ shop_model.id }}')"
-                    class="btn btn-outline-danger" id="basketButton{{ shop_model.id }}" style="font-size: large;">Sepete Ekle</a>
+                <a href=" javascript:void(0)" onclick="toggleBasket('{{ shop_model.id }}')" class="btn btn-outline-danger" id="basketButton{{ shop_model.id }}" style="font-size: large;">Sepete Ekle</a>
                 {% endif %}
                 {% endif %}
             </div>
+            {% if shop_model.id in busket_products %}
+            <div id="increase_decrease{{shop_model.id}}" class="d-flex align-items-center justify-content-center">
+                {% for basket in baskets %}
+                {% if basket.product.id == shop_model.id %}
+                <a href="javascript:void(0)" onclick="toggleDecrease('{{basket.id}}'), errorDecrease('{{basket.id}}')" class="btn btn-outline-primary" id="decreaseBtn{{basket.id}}" {% if basket.quantity == 1 %} style="display: none;" {% endif %}>-</a>
+                <p class="card-text quantity_style mx-3" style="font-size: large; margin-top: 15px;">Adet : <span id="quantityText{{basket.id}}">{{basket.quantity}}</span></p>
+                <a href="javascript:void(0)" onclick="toggleIncrease('{{basket.id}}'), errorIncrease('{{basket.id}}')" class="btn btn-outline-primary" id="increaseButton{{basket.id}}">+</a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% else %}
+            <div id="increase_decrease{{shop_model.id}}" class="d-none align-items-center justify-content-center">
+                <a href="javascript:void(0)" onclick="decrease('{{shop_model.title}}')" class="btn btn-outline-primary" id="decreaseBtn{{shop_model.title}}" style="display: none;">-</a>
+                <p class="card-text quantity_style mx-3" style="font-size: large; margin-top: 15px;">Adet : <span id="quantityContent{{shop_model.title}}">1</span></p>
+                <a href="javascript:void(0)" onclick="increase('{{shop_model.title}}')" class="btn btn-outline-primary">+</a>
+            </div>            
+            {% endif %}
         </div>
     </div>
 </div>
+
 
 
 <div class="modal fade" id="exampleModal{{shop_model.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -133,3 +150,4 @@
         </div>
     </div>
 </div>
+

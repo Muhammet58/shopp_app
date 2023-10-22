@@ -25,7 +25,7 @@ function toggleFavorite(icon, product_id) {
 };
 
 
-var addedToBasket = [];
+/*var addedToBasket = [];
 function toggleBasket(product_id) {
     if (addedToBasket.includes(product_id)) {
         return;
@@ -33,6 +33,7 @@ function toggleBasket(product_id) {
 
     var csrf_token = "{{ csrf_token }}";
     var button = document.getElementById("basketButton" + product_id);
+    var increaseDecreaseDiv = document.getElementById("increase_decrease" + product_id)
 
     $.ajax({
         type: "GET",
@@ -41,10 +42,45 @@ function toggleBasket(product_id) {
         data: { "csrfmiddlewaretoken": csrf_token },
         success: function (response) {
             if (response.message === "success") {
+                increaseDecreaseDiv.classList.remove("d-none");
+                increaseDecreaseDiv.classList.add("d-flex");
                 addedToBasket.push(product_id);
                 button.innerText = "Ürün Sepette";
             } else {
-                button.innerText = "Sepete Ekle"
+                button.innerText = "Sepete Ekle";
+            }
+        },
+        error: function () {
+            alert("Hata oluştu !");
+        },
+    });
+}*/
+
+
+var addedToBasket = []; 
+function toggleBasket(product_id) {
+    if (addedToBasket.includes(product_id)) {
+        return;
+    }
+
+    var csrf_token = "{{ csrf_token }}";
+    var button = document.getElementById("basketButton" + product_id);
+    var increaseDecreaseDiv = document.getElementById("increase_decrease" + product_id);
+
+    $.ajax({
+        type: "GET",
+        url: "/add_to_mybasket/" + product_id,
+        dataType: "json",
+        data: { "csrfmiddlewaretoken": csrf_token },
+        success: function (response) {
+            message = response.message;
+            if (message === "success") {
+                increaseDecreaseDiv.classList.remove("d-none");
+                increaseDecreaseDiv.classList.add("d-flex");
+                addedToBasket.push(product_id);
+                button.innerText = "Ürün Sepette";
+            } else {
+                button.innerText = "Sepete Ekle";
             }
         },
         error: function () {
@@ -58,10 +94,10 @@ function toggleBasket(product_id) {
 function toggleIncrease(product_id) {
     var csrf_token = "{{ csrf_token }}";
     var increase_text = document.getElementById("quantityText" + product_id);
-    var increase_button = document.getElementById("increaseButton" + product_id);
     var decrease_button = document.getElementById("decreaseButton" + product_id);
     var total_price_text = document.getElementById("totalPriceText");
     var price_text = document.getElementById("priceText");
+    var decreaseBTN = document.getElementById("decreaseBtn" + product_id);
 
     $.ajax({
         type: "GET",
@@ -74,6 +110,10 @@ function toggleIncrease(product_id) {
             price_text.innerText = "Toplam Toplam tutar: $" + response.new_total_price;
             if (response.new_quantity > 1) {
                 decrease_button.style.display = "inline-block";
+                $("#decreaseBtn" + product_id).css("display", "block")
+            } else {
+                decrease_button.style.display = "none";
+                $("#decreaseBtn" + product_id).css("display", "none")
             }
 
         },
@@ -91,6 +131,7 @@ function toggleDecrease(product_id) {
     var decrease_button = document.getElementById("decreaseButton" + product_id);
     var total_price_text = document.getElementById("totalPriceText");
     var price_text = document.getElementById("priceText");
+    var decreaseBTN = document.getElementById("decreaseBtn" + product_id);
 
 
     $.ajax({
@@ -103,7 +144,11 @@ function toggleDecrease(product_id) {
             total_price_text.innerText = "Toplam ücret: $" + response.new_total_price;
             price_text.innerText = "Toplam Toplam tutar: $" + response.new_total_price;
             if (response.new_quantity == 1) {
-                decrease_button.style.display = "none";
+                decrease_button.style.display = "none"; 
+                $("#decreaseBtn" + product_id).css("display", "none")
+            } else {
+                decrease_button.style.display = "inline-block";
+                $("#decreaseBtn" + product_id).css("display", "block")
             }
 
         },
@@ -229,3 +274,82 @@ function change_address() {
     });
 }
 
+
+function increase(product_title) {
+    var encodedTitle = encodeURIComponent(product_title);
+    $.ajax({
+        type: 'GET',
+        url: "/quantity_increase/" + encodedTitle,
+        dataType: "json",
+        success: function(response) {
+            var newQuantity = response.increased_amount;
+            $('#quantityContent' + product_title).text(newQuantity);
+
+            if (newQuantity > 1) {
+                $("#decreaseBtn" + product_title).css("display", "block");
+            }
+        },
+        error: function() {
+            alert("Hata oluştu!");
+        }
+    });
+}
+
+
+
+function decrease(product_title) {
+    var encodedTitle = product_title;
+    $.ajax({
+        type: "GET",
+        url: "/quantity_decrease/" + encodedTitle,
+        dataType: "json",
+        success: function(response) {
+            var newQuantity = response.decreased_amount;
+            $('#quantityContent' + product_title).text(newQuantity);
+
+            if (newQuantity <= 1) {
+                $("#decreaseBtn" + product_title).css("display", "none");
+            }
+        },
+        error: function() {
+            alert("Hata oluştu!");
+        }
+    });
+}
+
+
+
+function errorDecrease(product_id) {
+    var decreaseBtn = document.getElementById("decreaseBtn" + product_id)
+    $.ajax ({
+        type: "GET",
+        url: "/decrease/" + product_id,
+        dataType: "json",
+        success: function(response) {
+            if (response.new_quantity <= 1 ){
+                decreaseBtn.style.display = "none"
+            }
+        },
+        error: function() {
+            alert("Hata oluştu!")
+        }
+    })
+}
+
+
+function errorIncrease(product_id) {
+    var decreaseBtn = document.getElementById("decreaseBtn" + product_id)
+    $.ajax ({
+        type: "GET",
+        url: "/increase/" + product_id,
+        dataType: "json",
+        success: function(response) {
+            if (response.new_quantity > 1 ){
+                decreaseBtn.style.display = "inline-block"
+            }
+        },
+        error: function() {
+            alert("Hata oluştu!");
+        }
+    })
+}

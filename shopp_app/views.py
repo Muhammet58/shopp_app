@@ -3,13 +3,18 @@ from .models import shopping_model, myBasket_model, myFavorite_model
 from account.models import addresses
 from django.http import JsonResponse
 from .forms import productAddForm
+import urllib.parse
+
 
 def homePage(request):
+    busket_products = myBasket_model.objects.filter(user=request.user.id).values_list('product__id', flat=True)
+    favorite_products = myFavorite_model.objects.filter(user=request.user.id).values_list('product__id', flat=True)
+    user_baskets = myBasket_model.objects.filter(user=request.user)
     data = {
         "shopping_model": shopping_model.objects.all(),
-        "busket_products": myBasket_model.objects.filter(user=request.user.id).values_list('product__id', flat=True),
-        "favorite_products": myFavorite_model.objects.filter(user=request.user.id).values_list('product__id', flat=True),
-        "product_quantity":shopping_model.objects.count()
+        "busket_products": busket_products,
+        "favorite_products": favorite_products,
+        "baskets":user_baskets,
     }
     return render(request, "shopp_app/homePage.html", data)
 
@@ -73,8 +78,9 @@ def increase(request, product_id):
 
 def decrease(request, product_id):
     to_decrease = get_object_or_404(myBasket_model, user=request.user, id=product_id)
-    to_decrease.quantity -= 1
-    to_decrease.save()
+    if to_decrease.quantity > 1:
+        to_decrease.quantity -= 1
+        to_decrease.save()
 
     baskets = myBasket_model.objects.filter(user=request.user)
     total_price =  sum(item.quantity * item.product.price for item in baskets)
@@ -171,3 +177,21 @@ def address(request):
     request.user.save()
     return JsonResponse({"message": "success", "new_address": selected_address})
 
+
+
+def quantity_increase(request, title):
+    new_title = urllib.parse.unquote(title)
+    increase = get_object_or_404(myBasket_model, user=request.user, product__title=new_title)
+    increase.quantity += 1
+    increase.save()
+
+    return JsonResponse({"increased_amount": increase.quantity})
+
+def quantity_decrease(request, title):
+    increase = get_object_or_404(myBasket_model, user=request.user, product__title=title)
+    
+    if increase.quantity > 1:
+        increase.quantity -= 1
+        increase.save()
+
+    return JsonResponse({"decreased_amount": increase.quantity})

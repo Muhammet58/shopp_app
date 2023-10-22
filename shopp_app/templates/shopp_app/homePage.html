@@ -7,6 +7,7 @@
 
 {% block body %}
 
+
 <div class="container">
     {% if shopping_model|length > 0 %}
     {% for shop_model in shopping_model %}
@@ -15,10 +16,12 @@
     </div>
     {% endfor %}
     {% else %}
-        <div class="alert mt-5" style="text-align: center; font-size: large; background: crimson; color: white;">Sistemde kayıtlı ürün bulunamadı</div>
+    <div class="alert mt-5" style="text-align: center; font-size: large; background: crimson; color: white;">Sistemde
+        kayıtlı ürün bulunamadı</div>
     {% endif %}
 </div>
 
+{{product_quantity}}
 
 
 
