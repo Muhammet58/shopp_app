@@ -101,7 +101,7 @@
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-secondary" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}')" data-bs-dismiss="modal">hayır</a>
-                <a type="button" class="btn btn-danger" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}'), toggleRemoveFavorite({{basket.product.id}})" data-bs-dismiss="modal" style="color: white;">evet</a>
+                <a type="button" class="btn btn-danger" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}'), toggleRemoveFavorite('{{basket.product.id}}')" data-bs-dismiss="modal" style="color: white;">evet</a>
             </div>
             {% else %}
             <div class="modal-header bg-warning">
@@ -113,7 +113,7 @@
             </div>
             <div class="modal-footer">
                 <a type="button" class="btn btn-secondary" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}')" data-bs-dismiss="modal">hayır</a>
-                <a type="button" class="btn btn-warning" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}'), toggleFavorite(this, {{basket.product.id}}) " data-bs-dismiss="modal" style="color: black;">evet</a>
+                <a type="button" class="btn btn-warning" href="javascript:void(0)" onclick="toggleRemove('{{basket.id}}'), toggleFavorite(this, '{{basket.product.id}}') " data-bs-dismiss="modal" style="color: black;">evet</a>
             </div>
             {% endif %}
         </div>

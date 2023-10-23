@@ -4,12 +4,13 @@ from account.models import addresses
 from django.http import JsonResponse
 from .forms import productAddForm
 import urllib.parse
+from django.contrib.auth.decorators import login_required
 
 
 def homePage(request):
     busket_products = myBasket_model.objects.filter(user=request.user.id).values_list('product__id', flat=True)
     favorite_products = myFavorite_model.objects.filter(user=request.user.id).values_list('product__id', flat=True)
-    user_baskets = myBasket_model.objects.filter(user=request.user)
+    user_baskets = myBasket_model.objects.filter(user=request.user.id)
     data = {
         "shopping_model": shopping_model.objects.all(),
         "busket_products": busket_products,
