@@ -82,9 +82,9 @@
             <div id="increase_decrease{{shop_model.id}}" class="d-flex align-items-center justify-content-center">
                 {% for basket in baskets %}
                 {% if basket.product.id == shop_model.id %}
-                <a href="javascript:void(0)" onclick="toggleDecrease('{{basket.id}}'), errorDecrease('{{basket.id}}')" class="btn btn-outline-primary" id="decreaseBtn{{basket.id}}" {% if basket.quantity == 1 %} style="display: none;" {% endif %}>-</a>
+                <a href="javascript:void(0)" onclick="errorDecrease('{{basket.id}}')" class="btn btn-outline-primary" id="decreaseBtn{{basket.id}}" {% if basket.quantity == 1 %} style="display: none;" {% endif %}>-</a>
                 <p class="card-text quantity_style mx-3" style="font-size: large; margin-top: 15px;">Adet : <span id="quantityText{{basket.id}}">{{basket.quantity}}</span></p>
-                <a href="javascript:void(0)" onclick="toggleIncrease('{{basket.id}}'), errorIncrease('{{basket.id}}')" class="btn btn-outline-primary" id="increaseButton{{basket.id}}">+</a>
+                <a href="javascript:void(0)" onclick="errorIncrease('{{basket.id}}')" class="btn btn-outline-primary" id="increaseButton{{basket.id}}">+</a>
                 {% endif %}
                 {% endfor %}
             </div>

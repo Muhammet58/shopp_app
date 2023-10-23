@@ -321,11 +321,13 @@ function decrease(product_title) {
 
 function errorDecrease(product_id) {
     var decreaseBtn = document.getElementById("decreaseBtn" + product_id)
+    var price_text = document.getElementById("quantityText" + product_id)
     $.ajax ({
         type: "GET",
         url: "/decrease/" + product_id,
         dataType: "json",
         success: function(response) {
+            price_text.innerText = response.new_quantity
             if (response.new_quantity <= 1 ){
                 decreaseBtn.style.display = "none"
             }
@@ -339,11 +341,13 @@ function errorDecrease(product_id) {
 
 function errorIncrease(product_id) {
     var decreaseBtn = document.getElementById("decreaseBtn" + product_id)
+    var price_text = document.getElementById("quantityText" + product_id)
     $.ajax ({
         type: "GET",
         url: "/increase/" + product_id,
         dataType: "json",
         success: function(response) {
+            price_text.innerText = response.new_quantity
             if (response.new_quantity > 1 ){
                 decreaseBtn.style.display = "inline-block"
             }
