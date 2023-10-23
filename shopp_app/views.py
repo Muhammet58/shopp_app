@@ -103,7 +103,7 @@ def remove(request, product_id):
 
 def myFavorite(request):
     myFavorite = myFavorite_model.objects.filter(user=request.user)
-    basket_product = myBasket_model.objects.filter(user=request.user).values_list('product__id', flat=True)
+    basket_product = myBasket_model.objects.filter(user=request.user.id).values_list('product__id', flat=True)
     data = {
         'myFavorite': myFavorite,
         'basket_product':basket_product
