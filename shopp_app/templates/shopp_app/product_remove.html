@@ -6,8 +6,8 @@
 <style>
     .style {
         position: relative;
-        width: 100%;
-        bottom: -70px;
+        width: 75%;
+        bottom: -50px;
     }
 
     @media screen and (max-width:900px) {
@@ -37,7 +37,7 @@
                         <div class="card-body">
                             <h5 class="card-title" style="text-align: center; font-size: 23px;">{{shopping.title|title}}</h5>
                             <hr>
-                            <p class="card-text">
+                            <p class="card-text" style="text-align: center;">
                                 <a class="btn btn-outline-danger style" data-bs-toggle="modal"
                                     data-bs-target="#removeModal{{shopping.id}}">Ürünü
                                     kaldır</a>
@@ -83,5 +83,12 @@
 
 
 {% block js_file %}
-<script src="{% static 'js/ajax.js' %}"></script>{% endblock %}
+<script src="{% static 'js/ajax.js' %}"></script>
+<script>
+    var element = document.getElementsByClassName("card-title");
+    for (var i = 0; i < element.length; i++) {
+        element[i].innerHTML = element[i].innerHTML.replace(/_/g," ");  
+    }
+</script>
+{% endblock %}
 {% endblock %}

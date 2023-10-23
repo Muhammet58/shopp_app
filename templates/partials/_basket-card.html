@@ -9,7 +9,7 @@
     .info_style {
         width: 100%;
         position: relative;
-        bottom: -50px;
+        bottom: -30px;
     }
 
     @media screen and (max-width: 900px) {
@@ -73,7 +73,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">{{ basket.product.title|title }}</h1>
+                <h1 class="modal-title card-title fs-5" id="exampleModalLabel">{{ basket.product.title|title }}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -93,7 +93,7 @@
         <div class="modal-content">
             {% if basket.product.id in favorites %}
             <div class="modal-header bg-danger">
-                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">{{ basket.product.title|title }}</h1>
+                <h1 class="modal-title card-title fs-5" id="exampleModalLabel" style="color: white;">{{ basket.product.title|title }}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -105,7 +105,7 @@
             </div>
             {% else %}
             <div class="modal-header bg-warning">
-                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: black;">{{ basket.product.title|title }}</h1>
+                <h1 class="modal-title card-title fs-5" id="exampleModalLabel" style="color: black;">{{ basket.product.title|title }}</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -122,3 +122,11 @@
 
 
 
+{% block js_file %}
+<script>
+    var element = document.getElementsByClassName("card-title");
+    for (var i = 0; i < element.length; i++) {
+        element[i].innerHTML = element[i].innerHTML.replace(/_/g," ");  
+    }
+</script>
+{% endblock %}

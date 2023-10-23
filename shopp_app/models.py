@@ -9,6 +9,9 @@ class shopping_model(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     content = RichTextField(models.TextField())
 
+    def save(self, *args, **kwargs):
+        self.title = self.title.replace(" ", "_")
+        super(shopping_model, self).save(*args, **kwargs)
 
 class myBasket_model(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)

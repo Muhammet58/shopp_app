@@ -106,13 +106,13 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">{{ shop_model.title|title }}
+                <h1 class="modal-title card-title fs-5" id="exampleModalLabel" style="color: white;">{{ shop_model.title|title }}
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <img src="{{ shop_model.image.url }}" alt="shop_model.title" class="modal_img">
-                <p style="text-align: center; font-size: 20px; font-weight: bold; color: black;">
+                <p class="card-title" style="text-align: center; font-size: 20px; font-weight: bold; color: black;">
                     {{shop_model.title|title}}</p>
                 <hr>
                 <p>{{shop_model.content|safe}}</p>
@@ -151,3 +151,13 @@
     </div>
 </div>
 
+
+
+{% block js_file %}
+<script>
+    var element = document.getElementsByClassName("card-title");
+    for (var i = 0; i < element.length; i++) {
+        element[i].innerHTML = element[i].innerHTML.replace(/_/g," ");  
+    }
+</script>
+{% endblock %}
