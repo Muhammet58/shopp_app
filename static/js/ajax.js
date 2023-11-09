@@ -75,8 +75,6 @@ function toggleBasket(product_id) {
         success: function (response) {
             message = response.message;
             if (message === "success") {
-                increaseDecreaseDiv.classList.remove("d-none");
-                increaseDecreaseDiv.classList.add("d-flex");
                 addedToBasket.push(product_id);
                 button.innerText = "Ürün Sepette";
             } else {

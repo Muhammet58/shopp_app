@@ -31,3 +31,4 @@ class addresses(models.Model):
         verbose_name_plural = "adreslerim"
 
 
+
